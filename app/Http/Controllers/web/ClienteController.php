@@ -29,6 +29,11 @@ class ClienteController extends Controller
     //Para Tabla Resultados
     protected $tblEstatus=["1"=>"Activo","0"=>"Suspendido"];
     protected $tblAdicional=["1"=>"SI","0"=>"No"];
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
 
     public function index()

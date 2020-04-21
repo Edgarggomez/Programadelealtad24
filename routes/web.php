@@ -15,7 +15,7 @@ Route::get('/', function () {
    
    return view('layout.main');
    
-});
+})->middleware('auth');
 
 Route::any("/cliente/search","web\ClienteController@search") ;
 Route::resource("/cliente","web\ClienteController") ;
@@ -24,3 +24,7 @@ Route::resource("/cliente","web\ClienteController") ;
 
 Route::get("/flotilla/{id}/create","web\FlotillaController@create") ;
 Route::resource("/flotilla","web\FlotillaController", ['except' => ['create']]) ;
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
