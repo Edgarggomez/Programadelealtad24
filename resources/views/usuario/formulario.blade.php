@@ -42,7 +42,7 @@
                             {{ Form::label('password-confirm', 'Confirmar Contraseña:') }}
                             {{ Form::password('password-confirm', ['class' => 'form-control', 'placeholder' => 'Contraseña']) }}
                         </div>
-                        {{ Form::submit('Registrar', ['class' => 'btn btn-primary']) }}
+                        {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
                     {{ Form::close() }}
                 </div>
                 </div>

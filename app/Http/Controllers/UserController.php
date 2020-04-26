@@ -42,7 +42,7 @@ class UserController extends Controller
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
-        $user->assignRole($user->role);
+        $user->assignRole($input['role']);
         dd($user);
     }
 
@@ -63,9 +63,10 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $usuario)
     {
-        
+        $ubicacion = Ubicacion::pluck('ubicacion', 'id_ubicacion');
+        return view('usuario.formulario')->with(['user' => $usuario, 'ubicacion' => $ubicacion]);
     }
 
     /**
