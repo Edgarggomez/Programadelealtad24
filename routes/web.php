@@ -29,6 +29,6 @@ Route::resource("/flotilla","web\FlotillaController", ['except' => ['create']]) 
 
 Route::resource('usuarios', 'UserController');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
