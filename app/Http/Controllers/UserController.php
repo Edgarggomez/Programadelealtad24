@@ -50,7 +50,7 @@ class UserController extends Controller
 
         $user = User::create($input);
         $user->assignRole($input['role']);
-        dd($user);
+        return redirect(route('usuarios.index'));
     }
 
     /**

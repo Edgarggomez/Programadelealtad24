@@ -28,6 +28,6 @@ class CreateTiendasCcTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ubicacion_ccs');
+        Schema::dropIfExists('tiendas_cc');
     }
 }

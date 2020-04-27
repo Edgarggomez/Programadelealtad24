@@ -13,12 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-   
-   return view('layout.main');
-   
-})->middleware('auth');
-
 Route::any("/cliente/search","web\ClienteController@search") ;
 Route::resource("/cliente","web\ClienteController") ;
 
@@ -31,4 +25,4 @@ Route::resource('usuarios', 'UserController');
 
 Auth::routes(['register' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');

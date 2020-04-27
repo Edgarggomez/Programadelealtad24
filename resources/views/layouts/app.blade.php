@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -11,10 +11,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -43,6 +39,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
                         @else
                             @role('admin')
                             <li class="nav-item dropdown">
@@ -54,7 +55,7 @@
                                     <a class="dropdown-item" href="{{ route('usuarios.create') }}">
                                         Crear
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('usuarios.create') }}">
+                                    <a class="dropdown-item" href="{{ route('usuarios.index') }}">
                                         Buscar
                                     </a>
                                 </div>

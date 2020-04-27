@@ -34,6 +34,6 @@ class CreateBdsCcTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bd_ccs');
+        Schema::dropIfExists('bds_cc');
     }
 }
