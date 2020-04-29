@@ -6,6 +6,7 @@ use App\User;
 use App\Ubicacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserFormRequest;
 
 class UserController extends Controller
 {
@@ -43,14 +44,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserFormRequest $request)
     {
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
         $user->assignRole($input['role']);
-        return redirect(route('usuarios.index'));
+        return redirect(route('usuarios.index'))->with('success', '¡Usuario creado exitosamente!');;
     }
 
     /**
@@ -83,9 +84,13 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $usuario)
     {
-        //
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+        $usuario->update($input);
+        $usuario->syncRoles($input['role']);
+        return redirect(route('usuarios.index'))->with('success', '¡Usuario actualizado exitosamente!');
     }
 
     /**
@@ -94,8 +99,10 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $usuario)
     {
-        //
+        $usuario->status = "r";
+        $usuario->save();
+        return redirect(route('usuarios.index'))->with('success', '¡Usuario archivado exitosamente!');;
     }
 }
