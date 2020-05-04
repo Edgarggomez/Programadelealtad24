@@ -1,14 +1,4 @@
-@charset "UTF-8";
-
-@font-face {
-  font-family: "Nunito";
-  font-style: normal;
-  font-weight: 400;
-  src: url(/fonts/Nunito_400_normal.eot?3c57fd52a8a69f59b2482ea6f81d50a7);
-  /* http://fonts.gstatic.com/s/nunito/v12/XRXV3I6Li01BKofINeaF.eot */
-  src: local("\263A"), url(/fonts/Nunito_400_normal.eot?3c57fd52a8a69f59b2482ea6f81d50a7) format("embedded-opentype"), url(/fonts/Nunito_400_normal.woff2?508e414e3d3bc41666826fee46c7d881) format("woff2"), url(/fonts/Nunito_400_normal.woff?e5875b853d135f2a82ceae7ac537b6f4) format("woff"), url(/fonts/Nunito_400_normal.ttf?af2afcc8cd4c8c15d390134469bd70a2) format("truetype"), url(/fonts/Nunito_400_normal.svg?528e8ad45d3febb0238864d3f1bf86b7) format("svg");
-  /* http://fonts.gstatic.com/l/font?kit=XRXV3I6Li01BKofINeaG&skey=27bb6aa8eea8a5e7&v=v12#Nunito */
-}
+@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
