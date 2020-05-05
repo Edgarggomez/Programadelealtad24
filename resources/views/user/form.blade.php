@@ -9,9 +9,9 @@
 
                 <div class="card-body">
                     @if(isset($user))
-                        {{ Form::model($user, ['route' => ['usuarios.update', $user->id], 'method' => 'patch']) }}
+                        {{ Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'patch']) }}
                     @else
-                        {{ Form::open(['route' => 'usuarios.store']) }}
+                        {{ Form::open(['route' => 'users.store']) }}
                     @endif
                         {{ Form::token() }}
                         <div class="form-group">

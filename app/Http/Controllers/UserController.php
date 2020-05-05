@@ -24,7 +24,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(10);
-        return view('usuario.index', compact('users'));
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -35,7 +35,7 @@ class UserController extends Controller
     public function create()
     {
         $ubicacion = Ubicacion::pluck('ubicacion', 'id_ubicacion');
-        return view('usuario.formulario', compact('ubicacion', 'ubicacion'));
+        return view('user.form', compact('ubicacion', 'ubicacion'));
     }
 
     /**
@@ -51,7 +51,7 @@ class UserController extends Controller
 
         $user = User::create($input);
         $user->assignRole($input['role']);
-        return redirect(route('usuarios.index'))->with('success', '¡Usuario creado exitosamente!');;
+        return redirect(route('users.index'))->with('success', '¡Usuario creado exitosamente!');;
     }
 
     /**
@@ -71,10 +71,10 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $usuario)
+    public function edit(User $user)
     {
         $ubicacion = Ubicacion::pluck('ubicacion', 'id_ubicacion');
-        return view('usuario.formulario')->with(['user' => $usuario, 'ubicacion' => $ubicacion]);
+        return view('user.form')->with(['user' => $user, 'ubicacion' => $ubicacion]);
     }
 
     /**
@@ -84,13 +84,13 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $usuario)
+    public function update(Request $request, User $user)
     {
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
-        $usuario->update($input);
-        $usuario->syncRoles($input['role']);
-        return redirect(route('usuarios.index'))->with('success', '¡Usuario actualizado exitosamente!');
+        $user->update($input);
+        $user->syncRoles($input['role']);
+        return redirect(route('users.index'))->with('success', '¡Usuario actualizado exitosamente!');
     }
 
     /**
@@ -99,10 +99,10 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $usuario)
+    public function destroy(User $user)
     {
-        $usuario->status = "r";
-        $usuario->save();
-        return redirect(route('usuarios.index'))->with('success', '¡Usuario archivado exitosamente!');;
+        $user->status = "r";
+        $user->save();
+        return redirect(route('users.index'))->with('success', '¡Usuario archivado exitosamente!');;
     }
 }

@@ -21,7 +21,7 @@ Route::resource("/cliente","web\ClienteController") ;
 Route::get("/flotilla/{id}/create","web\FlotillaController@create") ;
 Route::resource("/flotilla","web\FlotillaController", ['except' => ['create']]) ;
 
-Route::resource('usuarios', 'UserController');
+Route::resource('usuarios', 'UserController', ['names' => 'users'])->parameters(['usuarios' => 'user']);
 
 Auth::routes(['register' => false]);
 

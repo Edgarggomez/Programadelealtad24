@@ -52,10 +52,10 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="{{ route('usuarios.create') }}">
+                                    <a class="dropdown-item" href="{{ route('users.create') }}">
                                         Crear
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('usuarios.index') }}">
+                                    <a class="dropdown-item" href="{{ route('users.index') }}">
                                         Buscar
                                     </a>
                                 </div>
