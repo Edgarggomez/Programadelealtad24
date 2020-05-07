@@ -22,13 +22,14 @@ class CreateReglasTable extends Migration
             $table->integer('porcentaje');
             $table->integer('hora_inicial');
             $table->integer('hora_final');
-            $table->boolean('lunes');
-            $table->boolean('martes');
-            $table->boolean('miercoles');
-            $table->boolean('jueves');
-            $table->boolean('viernes');
-            $table->boolean('sabado');
-            $table->boolean('domingo');
+            $table->boolean('lunes')->default(0);
+            $table->boolean('martes')->default(0);
+            $table->boolean('miercoles')->default(0);
+            $table->boolean('jueves')->default(0);
+            $table->boolean('viernes')->default(0);
+            $table->boolean('sabado')->default(0);
+            $table->boolean('domingo')->default(0);
+            $table->integer('id_ubicacion');
             $table->timestamps();
         });
     }

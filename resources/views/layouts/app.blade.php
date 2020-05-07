@@ -60,6 +60,20 @@
                                     </a>
                                 </div>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a id="userDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Ubicación <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="{{ route('locations.create') }}">
+                                        Crear
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('locations.index') }}">
+                                        Buscar
+                                    </a>
+                                </div>
+                            </li>
                             @endrole
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

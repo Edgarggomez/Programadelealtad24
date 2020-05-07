@@ -19,10 +19,10 @@ class CreateUbicacionesTable extends Migration
             $table->boolean('estatus');
             $table->integer('id_tda');
             $table->integer('id_bd');
-            $table->dateTime('sync_clientes');
-            $table->dateTime('sync_tarjetas');
-            $table->dateTime('sync_consumo');
-            $table->dateTime('ultima_conexion');
+            $table->dateTime('sync_clientes')->nullable();
+            $table->dateTime('sync_tarjetas')->nullable();
+            $table->dateTime('sync_consumo')->nullable();
+            $table->dateTime('ultima_conexion')->nullable();
             $table->timestamps();
         });
     }
