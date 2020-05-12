@@ -16,7 +16,7 @@ class CreateReglasTable extends Migration
         Schema::create('reglas', function (Blueprint $table) {
             $table->increments('id_regla');
             $table->string('regla',50);
-            $table->integer('tipo');
+            $table->boolean('tipo')->default(0);
             $table->boolean('estatus');
             $table->decimal('monto',12,2);
             $table->integer('porcentaje');
@@ -29,8 +29,13 @@ class CreateReglasTable extends Migration
             $table->boolean('viernes')->default(0);
             $table->boolean('sabado')->default(0);
             $table->boolean('domingo')->default(0);
-            $table->integer('id_ubicacion');
+            $table->integer('id_ubicacion')->unsigned();
             $table->timestamps();
+
+            $table->foreign('id_ubicacion')
+                ->references('id_ubicacion')
+                ->on('ubicaciones')
+                ->onDelete('cascade');
         });
     }
 

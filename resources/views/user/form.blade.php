@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('id_ubicacion', 'Ubicación:') !!}
-                            {!! Form::select('id_ubicacion', $ubicacion, old('id_ubication'), ['class' => 'form-control' . ( $errors->has('id_ubicacion') ? ' is-invalid' : null ), 'placeholder' => 'Ubicación']) !!}
+                            {!! Form::select('id_ubicacion', $location, old('id_ubication'), ['class' => 'form-control' . ( $errors->has('id_ubicacion') ? ' is-invalid' : null ), 'placeholder' => 'Ubicación']) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('password', 'Contraseña:') !!}

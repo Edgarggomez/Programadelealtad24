@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Ubicacion;
+use App\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserFormRequest;
@@ -34,8 +34,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $ubicacion = Ubicacion::pluck('ubicacion', 'id_ubicacion');
-        return view('user.form', compact('ubicacion', 'ubicacion'));
+        $location = Location::pluck('ubicacion', 'id_ubicacion');
+        return view('user.form', compact('location', 'location'));
     }
 
     /**

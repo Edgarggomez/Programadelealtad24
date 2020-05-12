@@ -5,16 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                
-                @if(isset($ubication))
+                @if(isset($location))
                     <div class="card-header">Modificar Ubicación</div>
                 @else
                     <div class="card-header">Alta Ubicación</div>
                 @endif
 
                 <div class="card-body">
-                    @if(isset($user))
-                        {!! Form::model($user, ['route' => ['locations.update', $user->id], 'method' => 'patch']) !!}
+                    @if(isset($location))
+                        {!! Form::model($location, ['route' => ['locations.update', $location->id_ubicacion], 'method' => 'patch']) !!}
                     @else
                         {!! Form::open(['route' => 'locations.store']) !!}
                     @endif

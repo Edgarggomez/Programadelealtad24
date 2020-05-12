@@ -65392,6 +65392,21 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 __webpack_require__(/*! ./components/Example */ "./resources/js/components/Example.js");
+/**
+ * Funcion para ocultar el input de ubicación para los administradores
+ */
+
+
+$("#role").change(function () {
+  if ($('#role').val() == 'admin') {
+    $("div > #id_ubicacion").val("");
+    $("label[for='id_ubicacion']").fadeOut();
+    $("div > #id_ubicacion").fadeOut();
+  } else {
+    $("label[for='id_ubicacion']").fadeIn();
+    $("div > #id_ubicacion").fadeIn();
+  }
+});
 
 /***/ }),
 

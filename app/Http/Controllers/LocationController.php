@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:admin');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,8 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        $locations = Location::paginate(10);
+        return view('location.index', compact('locations'));
     }
 
     /**
@@ -38,8 +46,8 @@ class LocationController extends Controller
         $input = $request->all();
         $input['id_tda'] = 1;
         $input['id_bd'] = 1;
-        return Location::create($input);
-        //@TODO: return redirect(route('users.index'))->with('success', '¡Usuario creado exitosamente!');
+        $location = Location::create($input);
+        return redirect(route('rules.create', $location->id_ubicacion))->with('success', '¡Ubicación creada exitosamente!');
     }
 
     /**
@@ -61,7 +69,10 @@ class LocationController extends Controller
      */
     public function edit(Location $location)
     {
-        //
+        for ($i=0; $i < 24; $i++) { 
+            $hours[] = $i;
+        }
+        return view('location.form')->with(['location' => $location, 'hours' => $hours]);
     }
 
     /**

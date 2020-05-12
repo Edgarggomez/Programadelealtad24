@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Regla;
+use App\Location;
 use Illuminate\Http\Request;
 
 class RuleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:admin');
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -22,13 +31,12 @@ class RuleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Location $location)
     {
-
         for ($i=0; $i < 24; $i++) { 
             $hours[] = $i;
         }
-        return view('location.rules', compact('hours'));
+        return view('location.rules', compact(['hours', 'location']));
     }
 
     /**
@@ -39,7 +47,12 @@ class RuleController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $input = $request->all();
+        $input['regla'] = 'NA';
+        $input['estatus'] = true;
+        $input['monto'] = 10.2;
+        Regla::create($input);
+        return redirect(route('locations.index'))->with('success', '¡Regla creada exitosamente!');
     }
 
     /**
