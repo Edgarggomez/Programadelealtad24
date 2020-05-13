@@ -17,6 +17,13 @@ require('./components/Example');
 /**
  * Funcion para ocultar el input de ubicación para los administradores
  */
+
+if ($('#role').val() == 'admin') {
+    $("div > #id_ubicacion").val("");
+    $("label[for='id_ubicacion']").fadeOut();
+    $("div > #id_ubicacion").fadeOut();
+}
+
 $("#role").change(function() {
     if ($('#role').val() == 'admin') {
         $("div > #id_ubicacion").val("");

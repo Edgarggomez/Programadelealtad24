@@ -65397,6 +65397,12 @@ __webpack_require__(/*! ./components/Example */ "./resources/js/components/Examp
  */
 
 
+if ($('#role').val() == 'admin') {
+  $("div > #id_ubicacion").val("");
+  $("label[for='id_ubicacion']").fadeOut();
+  $("div > #id_ubicacion").fadeOut();
+}
+
 $("#role").change(function () {
   if ($('#role').val() == 'admin') {
     $("div > #id_ubicacion").val("");

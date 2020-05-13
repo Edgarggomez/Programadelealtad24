@@ -73,8 +73,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $ubicacion = Ubicacion::pluck('ubicacion', 'id_ubicacion');
-        return view('user.form')->with(['user' => $user, 'ubicacion' => $ubicacion]);
+        $location = Location::pluck('ubicacion', 'id_ubicacion');
+        return view('user.form', compact(['user', 'location']));
     }
 
     /**
@@ -103,6 +103,6 @@ class UserController extends Controller
     {
         $user->status = "r";
         $user->save();
-        return redirect(route('users.index'))->with('success', '¡Usuario archivado exitosamente!');;
+        return redirect(route('users.index'))->with('success', '¡Usuario archivado exitosamente!');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Regla;
 use App\Location;
 use Illuminate\Http\Request;
+use App\Http\Requests\RuleFormRequest;
 
 class RuleController extends Controller
 {
@@ -45,7 +46,7 @@ class RuleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RuleFormRequest $request)
     {
         $input = $request->all();
         $input['regla'] = 'NA';
@@ -95,8 +96,9 @@ class RuleController extends Controller
      * @param  \App\Regla  $regla
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Regla $regla)
+    public function destroy(Regla $rule)
     {
-        //
+        $rule->delete();
+        return redirect(route('locations.index'))->with('success', '¡Regla eliminada!');
     }
 }

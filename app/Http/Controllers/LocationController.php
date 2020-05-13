@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Location;
+use App\Http\Requests\LocationFormRequest;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
@@ -41,7 +42,7 @@ class LocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LocationFormRequest $request)
     {
         $input = $request->all();
         $input['id_tda'] = 1;
@@ -82,9 +83,10 @@ class LocationController extends Controller
      * @param  \App\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Location $location)
+    public function update(LocationFormRequest $request, Location $location)
     {
-        //
+        $location->update($request->all());
+        return redirect(route('locations.index'))->with('success', '¡Ubicación actualizada exitosamente!');
     }
 
     /**
@@ -95,6 +97,7 @@ class LocationController extends Controller
      */
     public function destroy(Location $location)
     {
-        //
+        $location->delete();
+        return redirect(route('locations.index'))->with('success', '¡Ubicación eliminada!');
     }
 }
