@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('status', 'Estado:') !!}
-                            {!! Form::select('status', ['a' => 'Activo', 'i' => 'Inactivo'], old('status'), ['class' => 'form-control' . ( $errors->has('status') ? ' is-invalid' : null ), 'placeholder' => 'Estado']) !!}
+                            {!! Form::select('status', ['1' => 'Activo', '0' => 'Inactivo'], old('status'), ['class' => 'form-control' . ( $errors->has('status') ? ' is-invalid' : null ), 'placeholder' => 'Estado']) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('id_ubicacion', 'Ubicación:') !!}

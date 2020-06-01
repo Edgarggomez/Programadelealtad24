@@ -101,7 +101,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->status = "r";
+        $user->status = -1;
         $user->save();
         return redirect(route('users.index'))->with('success', '¡Usuario archivado exitosamente!');
     }

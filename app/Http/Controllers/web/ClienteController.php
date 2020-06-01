@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ClienteRequest;
 use App\Cliente ;
 use App\Tarjeta ;
-use App\Ubicacion ;
+use App\Location ;
 use App\Membresia;
 use App\TarjetaCC ;
 
@@ -96,7 +96,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        $ubicaciones=Ubicacion::where('estatus',1)->get();
+        $ubicaciones=Location::where('estatus',1)->get();
         $membresias=Membresia::where('estatus',1)->get();
         
         return view('cliente.create',
@@ -220,7 +220,7 @@ class ClienteController extends Controller
     {
         
         $cliente=Cliente::findOrFail($id);
-        $ubicaciones=Ubicacion::where('estatus',1)->get();
+        $ubicaciones=Location::where('estatus',1)->get();
         $membresias=Membresia::where('estatus',1)->get();
         $tarjeta=Tarjeta::where('id_tarjeta',$cliente->id_tarjeta_principal)->first();
 

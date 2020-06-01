@@ -17,8 +17,8 @@ class CreateUbicacionesTable extends Migration
             $table->increments('id_ubicacion');
             $table->string('ubicacion',32);
             $table->boolean('estatus');
-            $table->integer('id_tda');
-            $table->integer('id_bd');
+            $table->integer('id_tda')->nullable();
+            $table->integer('id_bd')->nullable();
             $table->dateTime('sync_clientes')->nullable();
             $table->dateTime('sync_tarjetas')->nullable();
             $table->dateTime('sync_consumo')->nullable();
