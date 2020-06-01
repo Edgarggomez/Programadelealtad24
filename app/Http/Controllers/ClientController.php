@@ -15,7 +15,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $clients = Cliente::paginate(15);
+        return view('client.index', compact('clients'));
     }
 
     /**
@@ -38,7 +39,8 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        return Cliente::create($input);
+        Cliente::create($input);
+        return redirect(route('clients.index'))->with('success', '¡Cliente creado exitosamente!');
     }
 
     /**
@@ -73,7 +75,10 @@ class ClientController extends Controller
      */
     public function update(Request $request, Cliente $client)
     {
-        $client->update($request->all());
+        $input = $request->all();
+        $input['saldo'] = $client->saldo + $input['add_balance'];
+        $client->update($input);
+        return redirect(route('clients.index'))->with('success', '¡Cliente actualizado exitosamente!');
     }
 
     /**
@@ -82,8 +87,9 @@ class ClientController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $cliente)
+    public function destroy(Cliente $client)
     {
-        //
+        $client->delete();
+        return redirect(route('clients.index'))->with('success', '¡Cliente eliminado exitosamente!');
     }
 }
