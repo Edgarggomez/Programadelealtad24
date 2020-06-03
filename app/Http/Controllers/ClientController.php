@@ -83,7 +83,7 @@ class ClientController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $client)
+    public function update(ClientFormRequest $request, Cliente $client)
     {
         $input = $request->all();
         $input['saldo'] = $client->saldo + $input['add_balance'];
