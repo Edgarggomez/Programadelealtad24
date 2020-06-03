@@ -31,7 +31,7 @@ class UserFormRequest extends FormRequest
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'role' => ['required', Rule::in(Role::all()->pluck('name')->toArray())],
-            'status' => ['required', Rule::in(['a', 'i', 'r'])],
+            'status' => ['required', Rule::in([0, 1, -1])],
             'id_ubicacion' => 'nullable|numeric'
         ];
     }

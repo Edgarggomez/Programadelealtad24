@@ -47,7 +47,7 @@
               
               <td>{{ $user->email }}</td>
 
-              <td>{{ $user->status == 'a' ? 'Activo' : 'Inactivo' }}</td>
+              <td>{{ $user->status == '1' ? 'Activo' : 'Inactivo' }}</td>
               
               <td>
                 

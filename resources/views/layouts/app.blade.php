@@ -60,6 +60,8 @@
                                     </a>
                                 </div>
                             </li>
+                            @endrole
+                            @hasanyrole('gerente|operador')
                             <li class="nav-item dropdown">
                                 <a id="userDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     Cliente <span class="caret"></span>
@@ -74,6 +76,8 @@
                                     </a>
                                 </div>
                             </li>
+                            @endhasanyrole
+                            @role('admin')
                             <li class="nav-item dropdown">
                                 <a id="userDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     Ubicación <span class="caret"></span>

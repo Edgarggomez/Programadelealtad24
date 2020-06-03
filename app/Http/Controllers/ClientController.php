@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use Illuminate\Http\Request;
 use App\Location;
+use App\Http\Requests\ClientFormRequest;
 
 class ClientController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:alta cliente', ['only' => ['create','store']]);
+        $this->middleware('permission:edicion cliente', ['only' => ['edit','update', 'index']]);
+        $this->middleware('permission:baja cliente', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +46,7 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientFormRequest $request)
     {
         $input = $request->all();
         Cliente::create($input);
