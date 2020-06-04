@@ -27,5 +27,8 @@ Route::resource('reglas', 'RuleController', ['names' => 'rules'])->parameters(['
 Route::get('ubicaciones/{location}/reglas/crear', 'RuleController@create')->name('rules.create');
 Route::resource('clientes', 'ClientController', ['names' => 'clients'])->parameters(['clientes' => 'client']);
 
+Route::resource('tarjetas', 'CardController', ['names' => 'cards'])->parameters(['tarjetas' => 'card'])->except(['create', 'edit', 'show']);
+Route::get('clientes/{client}/tarjetas/crear', 'CardController@create')->name('cards.create');
+
 Route::get('/', 'HomeController@index')->name('home');
 

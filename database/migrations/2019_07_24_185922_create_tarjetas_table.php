@@ -19,7 +19,7 @@ class CreateTarjetasTable extends Migration
             $table->string('tarjeta',32)->unique();
             $table->string('nombre',255);
             $table->boolean('adicional');
-            $table->boolean('estatus');
+            $table->boolean('estatus')->default(1);
             $table->decimal('saldo_migracion',12,2)->nullable();
             $table->dateTime('fecha_sync_update_tarjeta')->nullable();
             $table->dateTime('fecha_sync_por_migrar')->nullable();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Tarjeta;
 use Illuminate\Http\Request;
 use App\Location;
 use App\Http\Requests\ClientFormRequest;
@@ -48,8 +49,15 @@ class ClientController extends Controller
      */
     public function store(ClientFormRequest $request)
     {
-        $input = $request->all();
-        Cliente::create($input);
+        $client = Cliente::create($request->all());
+        $card = new Tarjeta;
+        $card->nombre = $request->nombre;
+        $card->tarjeta = $request->tarjeta;
+        $card->adicional = false;
+        $card->id_cliente = $client->id_cliente;
+        $card->save();
+        $client->id_tarjeta_principal = $card->id_tarjeta;
+        $client->save();
         return redirect(route('clients.index'))->with('success', '¡Cliente creado exitosamente!');
     }
 

@@ -37,18 +37,27 @@
                             <th>Saldo</th>
                             <th>Estatus</th>
                             <th>Tarjeta Adicional</th>
-                            <th>Acción</th>
+                            <th colspan="2">Acción</th>
                         </tr>
                         
                         @foreach ($clients as $key => $client)
                         
                         <tr>
                             <td>{{ $client->nombre }}</td>
-                            <td>{{ $client->id_tarjeta_principal }}</td>
+                            <td>{{ $client->mainCardNumber }}</td>
                             <td>{{ $client->saldo }}</td>
                             <td>{{ $client->estatus == '1' ? 'Activo' : 'Inactivo' }}</td>
                             <td>
                                 {{-- Radio button for Adtional Cards --}}
+                            </td>
+                            <td>
+                                @if ($client->flotilla)
+                                    <a href="{{ route('cards.create', $client->id_cliente)}}" class="btn btn-success" ><svg class="bi bi-plus-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+                                        <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+                                        <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                      </svg></a>
+                                @endif
                             </td>
                             <td>
                                 <a class="btn btn-primary" href="{{ route('clients.edit',$client->id_cliente) }}"><svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

@@ -38,10 +38,10 @@
                             {!! Form::label('rfc', 'RFC:') !!}
                             {!! Form::text('rfc', old('rfc'), ['class' => 'form-control' . ( $errors->has('rfc') ? ' is-invalid' : null ), 'placeholder' => 'Escriba su RFC', 'maxlength' => '16']) !!}
                         </div>
-                        {{-- <div class="form-group">
+                        <div class="form-group">
                             {!! Form::label('tarjeta', 'Tarjeta:') !!}
                             {!! Form::text('tarjeta', old('tarjeta'), ['class' => 'form-control' . ( $errors->has('tarjeta') ? ' is-invalid' : null ), 'placeholder' => 'Escriba número de tarjeta']) !!}
-                        </div> --}}
+                        </div>
                         <div class="form-group">
                             {!! Form::label('flotilla', '¿Flotilla?:') !!}
                             {!! Form::select('flotilla', [1 => 'Sí', 0 => 'No'], old('flotilla'), ['class' => 'form-control' . ( $errors->has('flotilla') ? ' is-invalid' : null ), 'placeholder' => 'Seleccione']) !!}
