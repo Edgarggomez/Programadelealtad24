@@ -29,7 +29,7 @@ class ClientFormRequest extends FormRequest
             'id_ubicacion' => 'required|numeric',
             'nombre' => 'required|string|max:255',
             'rfc' => ['required', 'regex:/[A-Z]{4}[0-9]{6}[A-Z0-9]{3}/'],
-            'correo' => 'required|email|max:255|unique:clientes',
+            'correo' => 'required|email|max:255|unique:clientes,id_cliente',
             'celular' => 'required|max:255',
             'sexo' => ['required', Rule::in(['F', 'M'])],
             'flotilla' => 'boolean',
