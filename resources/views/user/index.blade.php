@@ -3,97 +3,73 @@
 
 @section('content')
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header">Administración de Usuario</div>
-        
-        <div class="card-body">
-          <div class="row">
-            
-            <div class="col-lg-12 margin-tb">
-              
-              <div class="pull-right">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Administración de Usuario</div>
                 
-                <a class="btn btn-primary" href="{{ route('users.create') }}"> Crear Nuevo Usuario</a>
-                
-              </div>
-              
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="pull-right">
+                                <a class="btn btn-primary" href="{{ route('users.create') }}"> Crear Nuevo Usuario</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    {!! Form::open(['method' => 'GET','route' => ['users.index']]) !!}
+                        <div class="row">
+                            <div class="col">
+                                {!! Form::label('search', 'Buscar:', ['class' => 'sr-only']) !!}
+                                {!! Form::text('search', old('search'), ['class' => 'form-control', 'placeholder' => 'Buscar por nombre, correo', 'autofocus']) !!}
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    {!! Form::close() !!}
+                    <hr>
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Roles</th>
+                                <th>Estatus</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $key => $user)
+                                <tr>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->status == '1' ? 'Activo' : 'Inactivo' }}</td>
+                                    <td>
+                                        @if(!empty($user->getRoleNames()))
+                                            @foreach($user->getRoleNames() as $v)
+                                                <label class="badge badge-info">{{ $v }}</label>
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success" href="{{ route('users.edit', $user->id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        
+                                        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
+                                        
+                                            <button type="submit" class="btn btn-danger btn-delete" disabled="false"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                            <input type="checkbox" class="confirm-delete">
+                                        
+                                        {!! Form::close() !!}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    {!! $users->render() !!}
+                </div>
             </div>
-            
-          </div>
-          
-          <table class="table table-bordered">
-            
-            <tr>
-              
-              <th>Nombre</th>
-              
-              <th>Correo</th>
-              
-              <th>Roles</th>
-              
-              <th>Estatus</th>
-              
-              <th>Acción</th>
-              
-            </tr>
-            
-            @foreach ($users as $key => $user)
-            
-            <tr>
-              
-              <td>{{ $user->name }}</td>
-              
-              <td>{{ $user->email }}</td>
-
-              <td>{{ $user->status == '1' ? 'Activo' : 'Inactivo' }}</td>
-              
-              <td>
-                
-                @if(!empty($user->getRoleNames()))
-                
-                @foreach($user->getRoleNames() as $v)
-                
-                <label class="badge badge-success">{{ $v }}</label>
-                
-                @endforeach
-                
-                @endif
-                
-              </td>
-              
-              <td>
-                
-                <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}"><svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z"/>
-                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clip-rule="evenodd"/>
-                </svg></a>
-                
-                {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-                
-                  {!! Form::button('<svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" clip-rule="evenodd"/>
-                  </svg>', ['type' => 'submit', 'class' => 'btn btn-danger']) !!}
-                
-                {!! Form::close() !!}
-                
-              </td>
-              
-            </tr>
-            
-            @endforeach
-            
-          </table>
-          
-          
-          {!! $users->render() !!}
-          
         </div>
-      </div>
     </div>
-  </div>
 </div>
-
-
 @endsection

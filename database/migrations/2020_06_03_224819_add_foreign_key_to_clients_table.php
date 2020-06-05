@@ -29,7 +29,7 @@ class AddForeignKeyToClientsTable extends Migration
     public function down()
     {
         Schema::table('clientes', function (Blueprint $table) {
-            $table->dropIndex(['id_tarjeta_principal']);
+            $table->dropForeign(['id_tarjeta_principal']);
         });
     }
 }

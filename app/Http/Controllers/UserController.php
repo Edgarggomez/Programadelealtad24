@@ -21,9 +21,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(10);
+        $users = User::search($request->search)->paginate(10);
         return view('user.index', compact('users'));
     }
 
@@ -101,7 +101,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->status = -1;
+        $user->status = '2';
         $user->save();
         return redirect(route('users.index'))->with('success', '¡Usuario archivado exitosamente!');
     }

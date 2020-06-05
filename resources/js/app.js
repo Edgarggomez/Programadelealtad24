@@ -34,3 +34,11 @@ $("#role").change(function() {
         $("div > #id_ubicacion").fadeIn();
     }
 });
+
+var btnDelete = $('.btn-delete');
+$('.confirm-delete').each((i, e) => {
+    $(e).change(() => {
+        var checked = $(e).prop('checked');
+        $(btnDelete[i]).prop("disabled", !checked);
+    });
+});

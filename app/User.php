@@ -8,10 +8,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Builder;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
     use HasApiTokens,Notifiable, HasRoles;
+    use Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -55,7 +57,19 @@ class User extends Authenticatable
     protected static function booted()
     {
         static::addGlobalScope('status', function (Builder $builder) {
-            $builder->where('status', '<>', 'r');
+            $builder->where('status', '<>', '2');
         });
     }
+
+    /**
+	 * Get the indexable data array for the model.
+	 *
+	 * @return array
+	*/
+	public function toSearchableArray()
+	{
+		$array = $this->toArray();
+			
+		return array('name' => $array['name'], 'email' => $array['email']);
+	}
 }
