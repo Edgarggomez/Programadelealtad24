@@ -11,16 +11,18 @@ class Cliente extends Model
 
     protected $table = 'clientes';
 	protected $primaryKey = 'id_cliente';
-	protected $guarded = ['add_balance', 'id_cliente', 'tarjeta'];
+	protected $fillable = [
+        'id_tarjeta_principal', 'id_ubicacion', 'nombre','rfc', 'correo', 'celular', 'sexo', 'flotilla', 'estatus', 'saldo'
+    ];
 
-	protected $appends = array('mainCardNumber', 'mainCardName');
+	protected $appends = array('tarjeta', 'nombreTarjeta');
 
-	public function getMainCardNameAttribute()
+	public function getNombreTarjetaAttribute()
 	{
 		return  empty($this->mainCard) ? null : $this->mainCard->nombre;
 	}
 
-	public function getMainCardNumberAttribute()
+	public function getTarjetaAttribute()
 	{
 		return  empty($this->mainCard) ? null : $this->mainCard->tarjeta;
 	}

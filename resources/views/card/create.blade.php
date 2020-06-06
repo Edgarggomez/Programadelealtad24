@@ -16,10 +16,10 @@
                             </div>
                             <div class="row">
                                 <div class="col alert alert-dark text-center">
-                                    {{ $client->mainCardName }}
+                                    {{ $client->nombreTarjeta }}
                                 </div>
                                 <div class="col alert alert-dark text-center">
-                                    {{ $client->mainCardNumber }}
+                                    {{ $client->tarjeta }}
                                 </div>
                             </div>
                         </div>

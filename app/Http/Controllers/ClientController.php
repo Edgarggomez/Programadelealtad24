@@ -26,7 +26,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $clients = Cliente::search($request->search)->paginate(15);
+        $clients = Cliente::search($request->search)->paginate(10);
         return view('client.index', compact('clients'));
     }
 
@@ -49,13 +49,11 @@ class ClientController extends Controller
      */
     public function store(ClientFormRequest $request)
     {
-        $client = Cliente::create($request->all());
-        $card = new Tarjeta;
-        $card->nombre = $request->nombre;
-        $card->tarjeta = $request->tarjeta;
-        $card->adicional = false;
-        $card->id_cliente = $client->id_cliente;
-        $card->save();
+        $input = $request->all();
+        $client = Cliente::create($input);
+        $input['adicional'] = false;
+        $input['id_cliente'] = $client->id_cliente;
+        $card = Tarjeta::createOrUpdate($input);
         $client->id_tarjeta_principal = $card->id_tarjeta;
         $client->save();
         return redirect(route('clients.index'))->with('success', '¡Cliente creado exitosamente!');
@@ -94,7 +92,11 @@ class ClientController extends Controller
     public function update(ClientFormRequest $request, Cliente $client)
     {
         $input = $request->all();
+        $input['adicional'] = false;
+        $input['id_cliente'] = $client->id_cliente;
+        $card = Tarjeta::createOrUpdate($input);
         $input['saldo'] = $client->saldo + $input['add_balance'];
+        $input['id_tarjeta_principal'] = $card->id_tarjeta;
         $client->update($input);
         return redirect(route('clients.index'))->with('success', '¡Cliente actualizado exitosamente!');
     }

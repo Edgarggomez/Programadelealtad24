@@ -44,11 +44,11 @@
                         
                             <tr>
                                 <td>{{ $client->nombre }}</td>
-                                <td>{{ $client->mainCardNumber }}</td>
+                                <td>{{ $client->tarjeta }}</td>
                                 <td>{{ $client->saldo }}</td>
                                 <td>{{ $client->estatus == '1' ? 'Activo' : 'Inactivo' }}</td>
                                 <td>
-                                    {{-- Radio button for Adtional Cards --}}
+                                    TODO
                                 </td>
                                 <td>
                                     @if ($client->flotilla)
