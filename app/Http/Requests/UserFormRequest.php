@@ -28,7 +28,7 @@ class UserFormRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,id',
+            'email' => ['required', 'string', 'email', 'max:255',  Rule::unique('users')->ignore($this->id)],
             'password' => 'required|string|min:8|confirmed',
             'role' => ['required', Rule::in(Role::all()->pluck('name')->toArray())],
             'status' => ['required', Rule::in([0, 1, -1])],
