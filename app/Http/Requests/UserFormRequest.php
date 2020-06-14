@@ -42,7 +42,7 @@ class UserFormRequest extends FormRequest
              'name' => 'Nombre',
              'email' => 'Correo Electronico',
              'password' => 'Clave',
-             'rol' => 'Rol',
+             'role' => 'Rol',
              'status' => 'Estatus',
              'id_ubicacion' => 'Ubicación',
         ];
