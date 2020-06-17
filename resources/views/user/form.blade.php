@@ -15,6 +15,7 @@
                 <div class="card-body">
                     @if(isset($user))
                         {!! Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'patch']) !!}
+                        {!! Form::hidden('id', $user->id) !!}
                     @else
                         {!! Form::open(['route' => 'users.store']) !!}
                     @endif

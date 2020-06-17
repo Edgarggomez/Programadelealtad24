@@ -89,7 +89,7 @@ return [
     ],
 
     'mysql' => [
-        'mode' => 'NATURAL_LANGUAGE',
+        'mode' => 'LIKE',
         'model_directories' => [app_path()],
         'min_search_length' => 0,
         'min_fulltext_search_length' => 4,

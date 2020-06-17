@@ -19,6 +19,8 @@ class CreateClientesTable extends Migration
             $table->bigInteger('id_tarjeta_principal')->unsigned()->nullable();
             $table->integer('id_ubicacion')->unsigned();
             $table->string('nombre');
+            $table->string('paterno',80)->nullable();
+            $table->string('materno',80)->nullable();
             $table->string('domicilio',255)->nullable();
             $table->string('colonia',100)->nullable();
             $table->string('cp',10)->nullable();
