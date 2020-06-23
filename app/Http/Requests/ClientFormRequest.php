@@ -33,7 +33,7 @@ class ClientFormRequest extends FormRequest
             'celular' => 'required|max:255',
             'sexo' => ['required', Rule::in(['F', 'M'])],
             'flotilla' => 'boolean',
-            'estatus' => [Rule::in([0, 1, 1])],
+            'estatus' => [Rule::in([0, 1, 2])],
             'fecha_nacimiento' => 'date',
             'tarjeta' => ['required', Rule::unique('tarjetas')->where(function ($query) {
                 return $query->whereNotIn('id_cliente', ["''", $this->id_cliente ? $this->id_cliente : "''"]);

@@ -2,12 +2,12 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model;
+use App\Location;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(Location::class, function (Faker $faker) {
     return [
-        'ubicacion' => $faker->words($nb = 3, $asText = true),
+        'ubicacion' => $faker->words(3, true),
         'estatus' => '1'
     ];
 });

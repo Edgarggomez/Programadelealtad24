@@ -10,6 +10,7 @@ $factory->define(Model::class, function (Faker $faker) {
         'tarjeta' => $faker->regexify('[0-9]{15}'),
         'nombre' => $faker->name(),
         'adicional' => $faker->boolean(),
+        'id_cliente' => factory(App\Cliente::class),
         'estatus' => '1'
     ];
 });

@@ -13,8 +13,7 @@ $factory->define(Cliente::class, function (Faker $faker) {
         'sexo' => $faker->randomElement(array ('M', 'F')),
         'flotilla' => $faker->boolean(),
         'rfc' => $faker->regexify('[A-Z]{4}[0-9]{6}[A-Z0-9]{3}'),
-        'tarjeta' => $faker->regexify('[0-9]{15}'),
         'estatus' => $faker->randomElement(array ('0', '1', '2')),
-        'id_ubicacion' => 1
+        'id_ubicacion' => factory(App\Location::class)
     ];
 });
