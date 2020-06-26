@@ -10,10 +10,10 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="/js/app.js" defer></script>
+    <script src="/public/js/app.js" defer></script>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="/public/css/app.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
