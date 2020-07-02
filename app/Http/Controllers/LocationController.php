@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Location;
+use App\TiendaCC;
+use App\BdCC;
 use App\Http\Requests\LocationFormRequest;
 use Illuminate\Http\Request;
 
@@ -33,7 +35,9 @@ class LocationController extends Controller
      */
     public function create()
     {
-        return view('location.form');
+        $tdas = TiendaCC::pluck('nombre', 'id_tda');
+        $bds = BdCC::pluck('nombre', 'id_bd');
+        return view('location.form', compact(['tdas', 'bds']));
     }
 
     /**
@@ -45,8 +49,6 @@ class LocationController extends Controller
     public function store(LocationFormRequest $request)
     {
         $input = $request->all();
-        $input['id_tda'] = 1;
-        $input['id_bd'] = 1;
         $location = Location::create($input);
         return redirect(route('rules.create', $location->id_ubicacion))->with('success', '¡Ubicación creada exitosamente!');
     }
@@ -73,7 +75,9 @@ class LocationController extends Controller
         for ($i=0; $i < 24; $i++) { 
             $hours[] = $i;
         }
-        return view('location.form')->with(['location' => $location, 'hours' => $hours]);
+        $tdas = TiendaCC::pluck('nombre', 'id_tda');
+        $bds = BdCC::pluck('nombre', 'id_bd');
+        return view('location.form', compact(['location', 'hours', 'tdas', 'bds']));
     }
 
     /**

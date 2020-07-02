@@ -23,5 +23,7 @@ Route::resource('clientes', 'ClientController', ['names' => 'clients'])->paramet
 Route::resource('tarjetas', 'CardController', ['names' => 'cards'])->parameters(['tarjetas' => 'card'])->except(['create', 'edit', 'show', 'index']);
 Route::get('clientes/{client}/tarjetas/crear', 'CardController@create')->name('cards.create');
 
+Route::resource('configuraciones', 'SettingsController', ['names' => 'settings'])->parameters(['configuraciones' => 'setting']);
+
 Route::get('/', 'HomeController@index')->name('home');
 

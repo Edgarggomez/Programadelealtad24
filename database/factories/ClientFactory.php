@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Cliente;
+use App\Location;
 use Faker\Generator as Faker;
 
 $factory->define(Cliente::class, function (Faker $faker) {
@@ -14,6 +15,6 @@ $factory->define(Cliente::class, function (Faker $faker) {
         'flotilla' => $faker->boolean(),
         'rfc' => $faker->regexify('[A-Z]{4}[0-9]{6}[A-Z0-9]{3}'),
         'estatus' => $faker->randomElement(array ('0', '1', '2')),
-        'id_ubicacion' => factory(App\Location::class)
+        'id_ubicacion' => $faker->randomElement(Location::pluck('id_ubicacion'))
     ];
 });

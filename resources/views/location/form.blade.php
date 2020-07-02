@@ -22,6 +22,14 @@
                             {!! Form::text('ubicacion', old('ubicacion'), ['class' => 'form-control' . ( $errors->has('ubicacion') ? ' is-invalid' : null ), 'placeholder' => 'Escriba la ubicación']) !!}
                         </div>
                         <div class="form-group">
+                            {!! Form::label('id_tda', 'Tienda:') !!}
+                            {!! Form::select('id_tda', $tdas ?? [], old('id_tda'), ['class' => 'form-control' . ( $errors->has('id_tda') ? ' is-invalid' : null ), 'placeholder' => 'Tienda']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('id_bd', 'Base de datos:') !!}
+                            {!! Form::select('id_bd', $bds ?? [], old('id_bd'), ['class' => 'form-control' . ( $errors->has('id_bd') ? ' is-invalid' : null ), 'placeholder' => 'Base de datos']) !!}
+                        </div>
+                        <div class="form-group">
                             {!! Form::label('estatus', 'Estado:') !!}
                             {!! Form::select('estatus', [1 => 'Activo', 0 => 'Inactivo'], old('estatus'), ['class' => 'form-control' . ( $errors->has('estatus') ? ' is-invalid' : null ), 'placeholder' => 'Estado']) !!}
                         </div>

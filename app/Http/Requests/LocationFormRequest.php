@@ -26,6 +26,8 @@ class LocationFormRequest extends FormRequest
     {
         return [
             'ubicacion' => 'required|string',
+            'id_tda' => 'required|exists:tiendas_cc',
+            'id_bd' => 'required|exists:bds_cc',
             'estatus' => 'required|boolean'
         ];
     }
@@ -33,8 +35,10 @@ class LocationFormRequest extends FormRequest
     public function attributes()
     {
         return [
-             'ubicacion' => 'Ubicación',
-             'estatus' => 'Estado'
+            'ubicacion' => 'Ubicación',
+            'id_tda' => 'Tienda',
+            'id_bd' => 'Base de datos',
+            'estatus' => 'Estado'
         ];
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Regla;
 use App\Location;
+use App\TiendaCC;
+use App\BdCC;
 use Illuminate\Http\Request;
 use App\Http\Requests\RuleFormRequest;
 
@@ -37,7 +39,10 @@ class RuleController extends Controller
         for ($i=0; $i < 24; $i++) { 
             $hours[] = $i;
         }
-        return view('location.rules', compact(['hours', 'location']));
+        $tdas = TiendaCC::pluck('nombre', 'id_tda');
+        $bds = BdCC::pluck('nombre', 'id_bd');
+        
+        return view('location.rules', compact(['hours', 'location', 'tdas', 'bds']));
     }
 
     /**

@@ -35,7 +35,7 @@ class UserController extends Controller
     public function create()
     {
         $location = Location::pluck('ubicacion', 'id_ubicacion');
-        return view('user.form', compact('location', 'location'));
+        return view('user.form', compact('location'));
     }
 
     /**

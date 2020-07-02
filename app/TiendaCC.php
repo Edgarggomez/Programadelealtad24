@@ -8,5 +8,5 @@ class TiendaCC extends Model
 {
     protected $table = 'tiendas_cc';
 	protected $primaryKey = 'id_tda';
-	protected $guarded = [];
+	protected $fillable = ['id_tda', 'name', 'fecha_sync_establecimiento'];
 }
