@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use App\Tarjeta;
+use App\MovimientoSaldo;
 use Illuminate\Http\Request;
 use App\Location;
 use App\Http\Requests\ClientFormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -95,10 +97,48 @@ class ClientController extends Controller
         $input['adicional'] = false;
         $input['id_cliente'] = $client->id_cliente;
         $card = Tarjeta::createOrUpdate($input);
-        $input['saldo'] = $client->saldo + $input['add_balance'];
         $input['id_tarjeta_principal'] = $card->id_tarjeta;
         $client->update($input);
         return redirect(route('clients.index'))->with('success', '¡Cliente actualizado exitosamente!');
+    }
+
+
+    /**
+     * Show the form for editing the balance of the client.
+     *
+     * @param  \App\Cliente  $cliente
+     * @return \Illuminate\Http\Response
+     */
+    public function editBalance(Cliente $client)
+    {
+        return view('client.add_balance', compact('client'));
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Cliente  $cliente
+     * @return \Illuminate\Http\Response
+     */
+    public function updateBalance(Request $request, Cliente $client)
+    {
+        $input = $request->all();
+        $movSaldo = new MovimientoSaldo;
+        $movSaldo->id_cliente = $client->id_cliente;
+        $movSaldo->id_tarjeta = $client->id_tarjeta_principal;
+        $movSaldo->tipo = 'abono';
+        $movSaldo->origen = 'saldo_adicional';
+        $movSaldo->monto = $input['saldo_adicional'];
+        $movSaldo->saldo_anterior = $client->saldo ?? 0;
+        $movSaldo->saldo_nuevo = $client->saldo + $input['saldo_adicional'];
+        $movSaldo->tipo_usuario = 'G';
+        $movSaldo->email_usuario = Auth::user()->email;
+        $movSaldo->save();
+        $client->saldo = $movSaldo->saldo_nuevo;
+        $client->save();
+        return redirect(route('clients.index'))->with('success', '¡Saldo añadido exitosamente!');
     }
 
     /**
