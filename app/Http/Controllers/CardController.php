@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tarjeta;
 use App\Cliente;
+use App\Http\Requests\CardFormRequest;
 use Illuminate\Http\Request;
 
 class CardController extends Controller
@@ -34,7 +35,7 @@ class CardController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CardFormRequest $request)
     {
         $input = $request->all();
         $input['adicional'] = true;

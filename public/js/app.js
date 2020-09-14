@@ -65526,8 +65526,8 @@ if (document.getElementById('example')) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\projects\ClienteConsentido\sincronizador\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\projects\ClienteConsentido\sincronizador\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\yosiprompt\projects\ClienteConsentido\Programadelealtad24\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\yosiprompt\projects\ClienteConsentido\Programadelealtad24\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

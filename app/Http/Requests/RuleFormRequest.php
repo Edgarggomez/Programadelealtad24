@@ -31,6 +31,7 @@ class RuleFormRequest extends FormRequest
             'porcentaje' => 'required|numeric|min:0|max:100',
             'hora_inicial' => 'required|numeric|min:0|max:23',
             'hora_final' => 'required|numeric|min:0|max:23',
+            'lunes' => 'required_without_all:martes,miercoles,jueves,viernes,sabado,domingo',
             'tipo' => Rule::unique('reglas')->where(function ($query) {
                 $query->where([['tipo', true], ['id_ubicacion', $this->id_ubicacion]]);
             })
@@ -41,6 +42,7 @@ class RuleFormRequest extends FormRequest
     {
         return [
             'tipo.unique' => 'Solo puede existir una regla por defecto',
+            'lunes.required_without_all' => 'Debe seleccionarse al menos un día'
         ];
     }
 

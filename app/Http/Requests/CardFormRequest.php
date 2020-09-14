@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CardFormRequest extends FormRequest
 {
@@ -26,11 +27,11 @@ class CardFormRequest extends FormRequest
         $rules['tarjeta'] = 'required|unique:tarjetas,id_tarjeta';
         $rules['nombre'] = 'required|string|max:255';
 
-        if (!$this->adicional) {
+        /* if (!$this->adicional) {
             $rules['id_cliente'] = Rule::unique('tarjetas')->where(function ($query) {
-                $query->where(['adicional', false]);
+                $query->where('adicional', false);
             });
-        }
+        } */
 
         return $rules;
     }

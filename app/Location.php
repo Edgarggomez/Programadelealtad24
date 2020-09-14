@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use Illuminate\Database\Eloquent\Builder;
 
 class Location extends Model
 {
@@ -16,7 +17,19 @@ class Location extends Model
 	public function rules()
 	{
 		return $this->hasMany('App\Regla', 'id_ubicacion');
-	}
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('status', function (Builder $builder) {
+            $builder->where('estatus', '1');
+        });
+    }
 
 	/**
 	 * Get the indexable data array for the model.
@@ -26,7 +39,7 @@ class Location extends Model
 	public function toSearchableArray()
 	{
 		$array = $this->toArray();
-			
+
 		return array('ubicacion' => $array['ubicacion']);
 	}
 }

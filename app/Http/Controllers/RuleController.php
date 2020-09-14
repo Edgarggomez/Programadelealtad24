@@ -18,7 +18,7 @@ class RuleController extends Controller
         $this->middleware('role:admin');
     }
 
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -36,12 +36,12 @@ class RuleController extends Controller
      */
     public function create(Location $location)
     {
-        for ($i=0; $i < 24; $i++) { 
+        for ($i=0; $i < 24; $i++) {
             $hours[] = $i;
         }
         $tdas = TiendaCC::pluck('nombre', 'id_tda');
         $bds = BdCC::pluck('nombre', 'id_bd');
-        
+
         return view('location.rules', compact(['hours', 'location', 'tdas', 'bds']));
     }
 
@@ -103,6 +103,9 @@ class RuleController extends Controller
      */
     public function destroy(Regla $rule)
     {
+        if(Location::find($rule->id_ubicacion)->rules()->count() < 2) {
+            return redirect()->back()->withErrors(['No se puede eliminar esta regla, debe existir al menos una regla']);
+        }
         $rule->delete();
         return redirect(route('locations.index'))->with('success', '¡Regla eliminada!');
     }

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use Illuminate\Database\Eloquent\Builder;
 
 class Cliente extends Model
 {
@@ -25,7 +26,19 @@ class Cliente extends Model
 	public function getTarjetaAttribute()
 	{
 		return  empty($this->mainCard) ? null : $this->mainCard->tarjeta;
-	}
+    }
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('status', function (Builder $builder) {
+            $builder->where('estatus', '<>', '2');
+        });
+    }
 
 	/**
      * Get the index name for the model.
@@ -45,11 +58,11 @@ class Cliente extends Model
 	public function toSearchableArray()
 	{
 		$array = $this->toArray();
-			
+
 		return array('nombre' => $array['nombre'], 'correo' => $array['correo']);
 	}
-	
-	
+
+
 	/**
      * Get the card owned by the client.
      */
@@ -57,7 +70,7 @@ class Cliente extends Model
     {
         return $this->belongsTo('App\Tarjeta', 'id_tarjeta_principal');
 	}
-	
+
 
 	/**
      * Get all the cards owned by the client.

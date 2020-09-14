@@ -28,9 +28,9 @@ class ClientFormRequest extends FormRequest
         return [
             'id_ubicacion' => 'required|numeric',
             'nombre' => 'required|string|max:255',
-            'rfc' => ['required', 'regex:/[A-Z]{4}[0-9]{6}[A-Z0-9]{3}/'],
+            'rfc' => ['required'],
             'correo' => ['required','email','max:255', Rule::unique('clientes')->ignore($this->id_cliente, 'id_cliente')],
-            'celular' => 'required|max:255',
+            'celular' => ['required', 'regex:/^[0-9]{11}$/'],
             'sexo' => ['required', Rule::in(['F', 'M'])],
             'flotilla' => 'boolean',
             'estatus' => [Rule::in([0, 1, 2])],
@@ -38,6 +38,13 @@ class ClientFormRequest extends FormRequest
             'tarjeta' => ['required', Rule::unique('tarjetas')->where(function ($query) {
                 return $query->whereNotIn('id_cliente', ["''", $this->id_cliente ? $this->id_cliente : "''"]);
             })]
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'celular.regex' => 'El número de celular debe contener 11 digitos númericos'
         ];
     }
 
