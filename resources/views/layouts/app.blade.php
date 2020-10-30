@@ -36,14 +36,6 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
                         @else
                             @role('admin')
                             <li class="nav-item dropdown">
@@ -74,6 +66,9 @@
                                     <a class="dropdown-item" href="{{ route('clients.index') }}">
                                         Buscar
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('movimientosSaldo.index') }}">
+                                        Historial Saldo
+                                    </a>
                                 </div>
                             </li>
                             @endhasanyrole
@@ -99,6 +94,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @role('admin')
+                                        <a class="dropdown-item" href="{{ route('settings.create', ['nombre' => 'PRIMER_CONSUMO']) }}">
+                                            Configuración primer consumo
+                                        </a>
+                                    @endrole
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -56,9 +56,9 @@ class RuleController extends Controller
         $input = $request->all();
         $input['regla'] = 'NA';
         $input['estatus'] = true;
-        $input['monto'] = 10.2;
+        $input['monto'] = 0;
         Regla::create($input);
-        return redirect(route('locations.index'))->with('success', '¡Regla creada exitosamente!');
+        return back()->with('success', '¡Regla creada exitosamente!');
     }
 
     /**

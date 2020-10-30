@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class LocationFormRequest extends FormRequest
 {
@@ -25,10 +26,17 @@ class LocationFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'ubicacion' => 'required|string',
-            'id_tda' => 'required|exists:tiendas_cc',
+            'ubicacion' => 'required|string|max:30',
+            'id_tda' => ['required','exists:tiendas_cc', Rule::unique('ubicaciones')->ignore($this->id_ubicacion, 'id_ubicacion')],
             'id_bd' => 'required|exists:bds_cc',
             'estatus' => 'required|boolean'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'id_tda.unique' => 'Esta tienda ya está asignada a otra ubicación'
         ];
     }
 

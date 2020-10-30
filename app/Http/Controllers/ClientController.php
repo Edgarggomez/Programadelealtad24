@@ -124,6 +124,10 @@ class ClientController extends Controller
      */
     public function updateBalance(Request $request, Cliente $client)
     {
+        //validation
+        $validatedData = $request->validate([
+            'saldo_adicional' => 'required|numeric'
+        ]);
         $input = $request->all();
         $movSaldo = new MovimientoSaldo;
         $movSaldo->id_cliente = $client->id_cliente;
@@ -139,6 +143,14 @@ class ClientController extends Controller
         $client->saldo = $movSaldo->saldo_nuevo;
         $client->save();
         return redirect(route('clients.index'))->with('success', '¡Saldo añadido exitosamente!');
+    }
+
+    public function balanceHistory(Cliente $client)
+    {
+        $movimientos = MovimientoSaldo::where('id_cliente', $client->id_cliente)
+            ->orderBy('fecha_mov', 'desc')
+            ->paginate(10);
+        return view('client.balance_history', compact('movimientos'));
     }
 
     /**

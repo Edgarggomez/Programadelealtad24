@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                
+
                 @if(isset($client))
-                    <div class="card-header">Modificar Cliente</div>
+                    <div class="card-header">Modificar Cliente <a class="btn btn-primary float-right" href="{{ route('client.editBalance', $client->id_cliente)}}">Añadir saldo</a></div>
                 @else
                     <div class="card-header">Alta Cliente</div>
                 @endif
@@ -57,12 +57,8 @@
                                 {!! Form::label('estatus', 'Estado:') !!}
                                 {!! Form::select('estatus', ['1' => 'Activo', '0' => 'Inactivo' , '2' => 'Suspendido'], old('estatus'), ['class' => 'form-control' . ( $errors->has('estatus') ? ' is-invalid' : null ), 'placeholder' => 'Estado']) !!}
                             </div>
-                            <div class="form-group">
-                                {!! Form::label('add_balance', 'Saldo Adicional:') !!}
-                                {!! Form::number('add_balance', old('saldo'), ['class' => 'form-control' . ( $errors->has('saldo') ? ' is-invalid' : null ), 'placeholder' => 'Ingrese saldo adicional']) !!}
-                            </div>
                         @endif
-                        
+
                         {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
                     {!! Form::close() !!}
                 </div>

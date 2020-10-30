@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Settings;
+use App\Setting;
 use Illuminate\Http\Request;
 
-class SettingsController extends Controller
+class SettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,9 +22,14 @@ class SettingsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('setting.first_purchase');
+        $setting = Setting::where('name', $request->query('nombre'))->first();
+        if ($setting) {
+            return redirect(route('settings.edit', $setting));
+        } else {
+            return view('setting.first_purchase');
+        }
     }
 
     /**
@@ -35,7 +40,11 @@ class SettingsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $setting = Setting::create($request->all());
+        $setting->status = true;
+        $setting->save();
+        return redirect(route('home'))->with('success', '¡Configuración guardada exitosamente!');
+
     }
 
     /**
@@ -44,7 +53,7 @@ class SettingsController extends Controller
      * @param  \App\Settings  $settings
      * @return \Illuminate\Http\Response
      */
-    public function show(Settings $settings)
+    public function show(Setting $settings)
     {
         //
     }
@@ -55,9 +64,9 @@ class SettingsController extends Controller
      * @param  \App\Settings  $settings
      * @return \Illuminate\Http\Response
      */
-    public function edit(Settings $settings)
+    public function edit(Setting $setting)
     {
-        //
+        return view('setting.first_purchase', compact('setting'));
     }
 
     /**
@@ -67,7 +76,7 @@ class SettingsController extends Controller
      * @param  \App\Settings  $settings
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Settings $settings)
+    public function update(Request $request, Setting $settings)
     {
         //
     }
@@ -78,7 +87,7 @@ class SettingsController extends Controller
      * @param  \App\Settings  $settings
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Settings $settings)
+    public function destroy(Setting $settings)
     {
         //
     }

@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <hr>
-                        <form method="POST" action="{{ route('clients.updateBalance', $client->id_cliente) }}">
+                        <form method="POST" action="{{ route('client.updateBalance', $client->id_cliente) }}">
                             @csrf
                             <div class="row">
                                 <div class="col">
@@ -40,7 +40,7 @@
                                     <button type="submit" class="btn btn-primary">Guardar</button>
                                 </div>
                             </div>
-                            
+
                         </form>
                     </div>
                 </div>

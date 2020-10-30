@@ -29,9 +29,10 @@ class RuleFormRequest extends FormRequest
     {
         return [
             'porcentaje' => 'required|numeric|min:0|max:100',
-            'hora_inicial' => 'required|numeric|min:0|max:23',
-            'hora_final' => 'required|numeric|min:0|max:23',
-            'lunes' => 'required_without_all:martes,miercoles,jueves,viernes,sabado,domingo',
+            'hora_inicial' => 'required|date_format:H',
+            'hora_final' => 'required|date_format:H|after:hora_inicial',
+            'dias' => 'required|array',
+            'dias.*' => 'integer|min:0|max:6',
             'tipo' => Rule::unique('reglas')->where(function ($query) {
                 $query->where([['tipo', true], ['id_ubicacion', $this->id_ubicacion]]);
             })

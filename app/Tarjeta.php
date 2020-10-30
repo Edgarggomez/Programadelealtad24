@@ -2,15 +2,39 @@
 
 namespace App;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 
 class Tarjeta extends Model
 {
+    use Searchable;
     protected $table = 'tarjetas';
 	protected $primaryKey = 'id_tarjeta';
 	protected $fillable = [
         'id_cliente', 'tarjeta', 'nombre','adicional', 'estatus'
     ];
+
+	/**
+     * Get the index name for the model.
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'id_tarjeta';
+    }
+
+	/**
+	 * Get the indexable data array for the model.
+	 *
+	 * @return array
+	*/
+	public function toSearchableArray()
+	{
+		$array = $this->toArray();
+
+		return array('tarjeta' => $array['tarjeta']);
+	}
 
 	public static function createOrUpdate($attributes) {
 		$card = Tarjeta::where('tarjeta', $attributes['tarjeta'])->first();
@@ -31,5 +55,7 @@ class Tarjeta extends Model
 			}
 		}
 		return $card;
-	}
+    }
+
+
 }

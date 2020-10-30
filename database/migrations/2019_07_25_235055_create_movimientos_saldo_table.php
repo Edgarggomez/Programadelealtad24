@@ -15,10 +15,10 @@ class CreateMovimientosSaldoTable extends Migration
     {
         Schema::create('movimientos_saldo', function (Blueprint $table) {
             $table->bigIncrements('id_mov');
-            $table->bigInteger('id_cliente');
-            $table->bigInteger('id_tarjeta');
-            $table->integer('id_ubicacion')->nullable();
-            $table->integer('id_consumo')->nullable();
+            $table->bigInteger('id_cliente')->unsigned();
+            $table->bigInteger('id_tarjeta')->unsigned();
+            $table->integer('id_ubicacion')->unsigned()->nullable();
+            $table->bigInteger('id_consumo')->unsigned()->nullable();
             $table->string('tipo',20);
             $table->string('origen',20);
             $table->decimal('monto',12,2);
@@ -31,7 +31,7 @@ class CreateMovimientosSaldoTable extends Migration
             $table->string('tipo_usuario',5);
             $table->string('email_usuario',100)->nullable();
             $table->dateTime('fecha_consumo')->nullable();
-            $table->dateTime('fecha_mov')->useCurrent();            
+            $table->dateTime('fecha_mov')->useCurrent();
             $table->timestamps();
         });
     }

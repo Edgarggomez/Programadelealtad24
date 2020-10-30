@@ -19,13 +19,18 @@ Route::resource('ubicaciones', 'LocationController', ['names' => 'locations'])->
 Route::resource('reglas', 'RuleController', ['names' => 'rules'])->parameters(['reglas' => 'rule'])->except(['create', 'show', 'edit', 'update', 'index']);
 Route::get('ubicaciones/{location}/reglas/crear', 'RuleController@create')->name('rules.create');
 Route::resource('clientes', 'ClientController', ['names' => 'clients'])->parameters(['clientes' => 'client'])->except(['show']);
-Route::get('clientes/{client}/saldo-adicional', 'ClientController@editBalance')->name('clients.editBalance');
-Route::post('clientes/{client}/saldo-adicional', 'ClientController@updateBalance')->name('clients.updateBalance');
+Route::get('clientes/{client}/saldo-adicional', 'ClientController@editBalance')->name('client.editBalance');
+Route::post('clientes/{client}/saldo-adicional', 'ClientController@updateBalance')->name('client.updateBalance');
+
+Route::get('clientes/{client}/saldo-historial', 'ClientController@balanceHistory')->name('client.balanceHistory');
+
+Route::resource('movimientos', 'MovimientoSaldoController', ['names' => 'movimientosSaldo'])->parameters(['movimientos' => 'movimientoSaldo']);
+
 
 Route::resource('tarjetas', 'CardController', ['names' => 'cards'])->parameters(['tarjetas' => 'card'])->except(['create', 'edit', 'show', 'index']);
 Route::get('clientes/{client}/tarjetas/crear', 'CardController@create')->name('cards.create');
 
-Route::resource('configuraciones', 'SettingsController', ['names' => 'settings'])->parameters(['configuraciones' => 'setting']);
+Route::resource('configuraciones', 'SettingController', ['names' => 'settings'])->parameters(['configuraciones' => 'setting']);
 
 Route::get('/', 'HomeController@index')->name('home');
 

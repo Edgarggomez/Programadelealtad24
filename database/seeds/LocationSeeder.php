@@ -11,8 +11,7 @@ class LocationSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\TiendaCC', 5)->create();
         factory('App\BdCC', 5)->create();
-        factory('App\Location', 10)->create();
+        factory('App\Location', 5)->create();
     }
 }

@@ -12,7 +12,7 @@
 </div>
 <style>
     .full-height {
-        height: 100vh;
+        height: 70vh;
     }
 
     .flex-center {
@@ -27,13 +27,13 @@
 
     .code {
         border-right: 2px solid;
-        font-size: 26px;
+        font-size: 56px;
         padding: 0 15px 0 15px;
         text-align: center;
     }
 
     .message {
-        font-size: 18px;
+        font-size: 28px;
         text-align: center;
     }
 </style>

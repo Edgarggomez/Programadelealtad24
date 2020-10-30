@@ -27,7 +27,7 @@
                     </div>
                 {!! Form::close() !!}
                 <hr>
-                
+
                 <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
@@ -35,21 +35,17 @@
                             <th>Tarjeta</th>
                             <th>Saldo</th>
                             <th>Estatus</th>
-                            <th>Tarjeta Adicional</th>
                             <th colspan="2">Acción</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($clients as $key => $client)
-                        
+
                             <tr>
                                 <td>{{ $client->nombre }}</td>
                                 <td>{{ $client->tarjeta }}</td>
                                 <td>{{ $client->saldo }}</td>
                                 <td>{{ $client->estatus == '1' ? 'Activo' : 'Inactivo' }}</td>
-                                <td>
-                                    TODO
-                                </td>
                                 <td>
                                     @if ($client->flotilla)
                                         <a href="{{ route('cards.create', $client->id_cliente)}}" class="btn btn-primary" ><i class="fa fa-plus" aria-hidden="true"></i></a>

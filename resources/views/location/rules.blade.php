@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                
+
                 @if(isset($ubication))
                     <div class="card-header">Modificar Regla</div>
                 @else
@@ -62,35 +62,35 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col">
-                                    {!! Form::checkbox('lunes', 1, false, ['class' => 'form-check-input']) !!}
+                                    {!! Form::checkbox('lunes', 0, false, ['name' => 'dias[]', 'class' => 'form-check-input']) !!}
                                     <label class="form-check-label" for="lunes">Lunes</label>
                                 </div>
                                 <div class="col">
-                                    {!! Form::checkbox('martes', 1, false, ['class' => 'form-check-input']) !!}
+                                    {!! Form::checkbox('martes', 1, false, ['name' => 'dias[]', 'class' => 'form-check-input']) !!}
                                     <label class="form-check-label" for="martes">Martes</label>
                                 </div>
                                 <div class="col">
-                                    {!! Form::checkbox('miercoles', 1, false, ['class' => 'form-check-input']) !!}
+                                    {!! Form::checkbox('miercoles', 2, false, ['name' => 'dias[]', 'class' => 'form-check-input']) !!}
                                     <label class="form-check-label" for="miercoles">Miercoles</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    {!! Form::checkbox('jueves', 1, false, ['class' => 'form-check-input']) !!}
+                                    {!! Form::checkbox('jueves', 3, false, ['name' => 'dias[]', 'class' => 'form-check-input']) !!}
                                     <label class="form-check-label" for="jueves">Jueves</label>
                                 </div>
                                 <div class="col">
-                                    {!! Form::checkbox('viernes', 1, false, ['class' => 'form-check-input']) !!}
+                                    {!! Form::checkbox('viernes', 4, false, ['name' => 'dias[]', 'class' => 'form-check-input']) !!}
                                     <label class="form-check-label" for="viernes">Viernes</label>
                                 </div>
                                 <div class="col">
-                                    {!! Form::checkbox('sabado', 1, false, ['class' => 'form-check-input']) !!}
+                                    {!! Form::checkbox('sabado', 5, false, ['name' => 'dias[]', 'class' => 'form-check-input']) !!}
                                     <label class="form-check-label" for="sabado">Sabado</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    {!! Form::checkbox('domingo', 1, false, ['class' => 'form-check-input']) !!}
+                                    {!! Form::checkbox('domingo', 6, false, ['name' => 'dias[]', 'class' => 'form-check-input']) !!}
                                     <label class="form-check-label" for="domingo">Domingo</label>
                                 </div>
                             </div>

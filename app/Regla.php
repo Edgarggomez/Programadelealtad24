@@ -9,16 +9,23 @@ class Regla extends Model
     protected $primaryKey = 'id_regla';
 
     protected $fillable = [
-        'regla', 'tipo', 'estatus', 'monto', 'porcentaje', 'hora_inicial', 'hora_final', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'id_ubicacion'
+        'regla', 'tipo', 'estatus', 'monto', 'porcentaje', 'hora_inicial', 'hora_final', 'dias', 'id_ubicacion'
+    ];
+
+    protected $casts = [
+        'dias' => 'array',
     ];
 
     protected $appends = array('days');
 
     public function getDaysAttribute()
     {
-        return substr(($this->lunes ? 'L,' : '') . ($this->martes ? 'M,' : '') . ($this->miercoles ? 'Mi,' : '') 
-        . ($this->jueves ? 'J,' : '') . ($this->viernes ? 'V,' : '') . ($this->sabado ? 'S,' : '')
-        . ($this->domingo ? 'D,' : ''), 0, -1);
+        $days_array = ['D', 'L', 'M', 'Mi', 'J', 'V', 'S'];
+        $display_days = [];
+        foreach($this->dias as $day) {
+            $display_days[] = $days_array[$day];
+        }
+        return implode(', ', $display_days);
     }
 
 }
