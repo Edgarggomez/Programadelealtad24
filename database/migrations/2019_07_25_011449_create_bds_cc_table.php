@@ -18,13 +18,13 @@ class CreateBdsCcTable extends Migration
             $table->string('nombre',128);
             $table->string('bd',128);
             $table->boolean('estatus');
-            $table->string('last_message',255);
-            $table->dateTime('ultima_conexion');
-            $table->dateTime('fecha_actualizacion');
-            $table->dateTime('fecha_sync_bd');
+            $table->string('last_message',255)->nullable();
+            $table->dateTime('ultima_conexion')->nullable();
+            $table->dateTime('fecha_actualizacion')->useCurrent();
+            $table->dateTime('fecha_sync_bd')->useCurrent();
             $table->timestamps();
         });
-        
+
     }
 
     /**

@@ -24,22 +24,16 @@ class CardFormRequest extends FormRequest
      */
     public function rules()
     {
-        $rules['tarjeta'] = 'required|unique:tarjetas,id_tarjeta';
-        $rules['nombre'] = 'required|string|max:255';
-
-        /* if (!$this->adicional) {
-            $rules['id_cliente'] = Rule::unique('tarjetas')->where(function ($query) {
-                $query->where('adicional', false);
-            });
-        } */
-
-        return $rules;
+        return [
+            'tarjeta' => 'required|unique:tarjetas,id_tarjeta|exists:tarjetas_cc',
+            'nombre' => 'required|string|max:255'
+        ];
     }
 
     public function messages()
     {
         return [
-            'id_cliente.unique' => 'Solo puede existir una tarjeta principal por cliente',
+            'tarjeta.exists' => 'El número de tarjeta ingresado no existe'
         ];
     }
 

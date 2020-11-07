@@ -18,14 +18,14 @@ class CreateTarjetasTable extends Migration
             $table->bigInteger('id_cliente')->unsigned();
             $table->string('tarjeta',32)->unique();
             $table->string('nombre',255);
-            $table->boolean('adicional');
+            $table->boolean('adicional')->nullable();
             $table->boolean('estatus')->default(1);
             $table->decimal('saldo_migracion',12,2)->nullable();
             $table->dateTime('fecha_sync_update_tarjeta')->nullable();
             $table->dateTime('fecha_sync_por_migrar')->nullable();
             $table->dateTime('fecha_sync_saldo_inicial')->nullable();
-            $table->dateTime('fecha_creacion')->nullable(); //TODO: verificar sin son necesarias estas columnas
-            $table->dateTime('fecha_actualizacion')->nullable();
+            $table->dateTime('fecha_creacion')->useCurrent();
+            $table->dateTime('fecha_actualizacion')->useCurrent();
             $table->timestamps();
 
             $table->foreign('id_cliente')

@@ -12,6 +12,7 @@ use App\MovimientoSaldo;
 use App\Location;
 use App\Regla;
 use App\Setting;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
@@ -305,6 +306,7 @@ class ControlGasController extends Controller
                         $movSaldo->folio = $consumo['folio'];
                         $movSaldo->fecha_consumo = $consumo['fecha_consumo'];
                         $movSaldo->save();
+                        $client->fecha_actualizacion_saldo = Carbon::now();
                         $client->saldo = $movSaldo->saldo_nuevo;
                         $client->save();
                     }

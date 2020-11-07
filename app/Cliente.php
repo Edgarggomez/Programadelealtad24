@@ -77,6 +77,6 @@ class Cliente extends Model
      */
     public function cards()
     {
-        return $this->hasMany('App\Tarjeta', 'id_cliente')->where('adicional', true);
+        return $this->hasMany('App\Tarjeta', 'id_cliente')->where('adicional', true)->where('estatus', '1');
     }
 }

@@ -8,6 +8,8 @@ use App\MovimientoSaldo;
 use Illuminate\Http\Request;
 use App\Location;
 use App\Http\Requests\ClientFormRequest;
+use App\TarjetaCC;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
@@ -140,6 +142,7 @@ class ClientController extends Controller
         $movSaldo->tipo_usuario = 'G';
         $movSaldo->email_usuario = Auth::user()->email;
         $movSaldo->save();
+        $client->fecha_actualizacion_saldo = Carbon::now();
         $client->saldo = $movSaldo->saldo_nuevo;
         $client->save();
         return redirect(route('clients.index'))->with('success', '¡Saldo añadido exitosamente!');

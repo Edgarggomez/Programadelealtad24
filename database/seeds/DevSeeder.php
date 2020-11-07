@@ -1,5 +1,6 @@
 <?php
 
+use App\BdCC;
 use Illuminate\Database\Seeder;
 
 class DevSeeder extends Seeder
@@ -12,6 +13,11 @@ class DevSeeder extends Seeder
     public function run()
     {
         $this->call(UserSeeder::class);
-        $this->call(LocationSeeder::class);
+        //$this->call(LocationSeeder::class);
+        BdCC::create([
+            'nombre' => 'CCPruebas',
+            'bd' => 'CCPruebas',
+            'estatus' => '1'
+        ]);
     }
 }

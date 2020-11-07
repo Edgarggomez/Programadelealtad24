@@ -39,7 +39,7 @@ class CardController extends Controller
     {
         $input = $request->all();
         $input['adicional'] = true;
-        Tarjeta::create($input);
+        $card = Tarjeta::createOrUpdate($input);
         return redirect(route('cards.create', $input['id_cliente']))->with('success', '¡Tarjeta añadida exitosamente!');
     }
 
@@ -85,7 +85,8 @@ class CardController extends Controller
      */
     public function destroy(Tarjeta $card)
     {
-        $card->delete();
+        $card->status = 0;
+        $card->save();
         return redirect(route('cards.create', $card->id_cliente))->with('success', '¡Usuario eliminado exitosamente!');
     }
 }

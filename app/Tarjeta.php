@@ -11,7 +11,7 @@ class Tarjeta extends Model
     protected $table = 'tarjetas';
 	protected $primaryKey = 'id_tarjeta';
 	protected $fillable = [
-        'id_cliente', 'tarjeta', 'nombre','adicional', 'estatus'
+        'id_cliente', 'tarjeta', 'nombre','adicional', 'estatus', 'fecha_sync_update_tarjeta'
     ];
 
 	/**
@@ -37,24 +37,25 @@ class Tarjeta extends Model
 	}
 
 	public static function createOrUpdate($attributes) {
-		$card = Tarjeta::where('tarjeta', $attributes['tarjeta'])->first();
-		$mainCard = Tarjeta::where([['id_cliente', $attributes['id_cliente']], ['adicional', false]])->first();
-		if (!empty($mainCard) && !$attributes['adicional']) {
-			$mainCard->adicional = true;
-			$mainCard->save();
-		}
-		if (empty($card)) {
-			$card = Tarjeta::create($attributes);
-		} else {
-			if($card->id_cliente == null || $card->id_cliente == $attributes['id_cliente']) {
-				$card->id_cliente = $attributes['id_cliente'];
-				$card->adicional = $attributes['adicional'];
-				$card->save();
-			} else {
-				return null;
-			}
-		}
-		return $card;
+
+        $card = Tarjeta::where('tarjeta',$attributes['tarjeta'])->first();
+        $oldCard = Tarjeta::where([['id_cliente', $attributes['id_cliente']], ['adicional', false], ['estatus', '1'], ['tarjeta', '<>', $attributes['tarjeta']]])->first();
+
+        if(!$card) {
+            $tarjetaCC = TarjetaCC::where('tarjeta', $attributes['tarjeta'])->first();
+            if($tarjetaCC){
+                $attributes['fecha_sync_update_tarjeta'] = $tarjetaCC->fecha_sync_nueva_tarjeta;
+                $card = Tarjeta::create($attributes);
+            }
+        }
+
+        if ($oldCard) {
+            $oldCard->adicional = null;
+            $oldCard->estatus = false;
+            $oldCard->save();
+        }
+
+        return $card;
     }
 
 

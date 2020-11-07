@@ -12,6 +12,7 @@ use App\BdCC ;
 use App\MovimientoSaldo;
 use App\Regla;
 use App\Setting;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class CompuCController extends Controller
@@ -243,7 +244,7 @@ class CompuCController extends Controller
 		$response = DB::table('clientes')
 		->join('tarjetas', 'clientes.id_tarjeta_principal', '=', 'tarjetas.id_tarjeta')
 		->select('clientes.id_cliente', 'clientes.id_tarjeta_principal as id_tarjeta', 'tarjetas.tarjeta','saldo','fecha_sync_saldo')
-		->where('fecha_sync_saldo','<=',DB::raw('fecha_actualizacion_saldo'))->get();
+		->where('fecha_sync_saldo','<=',DB::raw('fecha_actualizacion_saldo'))->orWhere([['fecha_sync_saldo', null], ['fecha_actualizacion_saldo', '<>', null]])->get();
 
 
 		//Mandar fecha actual de sincronizacion
@@ -370,6 +371,7 @@ class CompuCController extends Controller
                             $movSaldo->folio = $consumo['folio'];
                             $movSaldo->fecha_consumo = $consumo['fecha_consumo'];
                             $movSaldo->save();
+                            $client->fecha_actualizacion_saldo = Carbon::now();
                             $client->saldo = $movSaldo->saldo_nuevo;
                             $client->save();
                         }
