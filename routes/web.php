@@ -24,6 +24,7 @@ Route::post('clientes/{client}/saldo-adicional', 'ClientController@updateBalance
 
 Route::get('clientes/{client}/saldo-historial', 'ClientController@balanceHistory')->name('client.balanceHistory');
 
+Route::get('movimientos/export', 'MovimientoSaldoController@export')->name('movimientosSaldo.export');
 Route::resource('movimientos', 'MovimientoSaldoController', ['names' => 'movimientosSaldo'])->parameters(['movimientos' => 'movimientoSaldo']);
 
 

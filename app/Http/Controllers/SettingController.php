@@ -76,9 +76,11 @@ class SettingController extends Controller
      * @param  \App\Settings  $settings
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Setting $settings)
+    public function update(Request $request, Setting $setting)
     {
-        //
+
+        $setting->update($request->all());
+        return redirect(route('home'))->with('success', '¡Configuración guardada exitosamente!');
     }
 
     /**

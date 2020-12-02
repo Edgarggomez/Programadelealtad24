@@ -49,7 +49,7 @@ class Tarjeta extends Model
             }
         }
 
-        if ($oldCard) {
+        if ($oldCard && !$attributes['adicional']) {
             $oldCard->adicional = null;
             $oldCard->estatus = false;
             $oldCard->save();

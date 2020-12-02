@@ -41,7 +41,7 @@ class UserFormRequest extends FormRequest
         return [
              'name' => 'Nombre',
              'email' => 'Correo Electronico',
-             'password' => 'Clave',
+             'password' => 'Contraseña',
              'role' => 'Rol',
              'status' => 'Estado',
              'id_ubicacion' => 'Ubicación',

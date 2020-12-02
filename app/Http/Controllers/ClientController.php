@@ -128,7 +128,7 @@ class ClientController extends Controller
     {
         //validation
         $validatedData = $request->validate([
-            'saldo_adicional' => 'required|numeric'
+            'saldo_adicional' => 'required|numeric|min:0'
         ]);
         $input = $request->all();
         $movSaldo = new MovimientoSaldo;

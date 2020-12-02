@@ -26,8 +26,8 @@ class LocationFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'ubicacion' => 'required|string|max:30',
-            'id_tda' => ['required','exists:tiendas_cc', Rule::unique('ubicaciones')->ignore($this->id_ubicacion, 'id_ubicacion')],
+            'ubicacion' => 'required|string|max:30|unique:ubicaciones,ubicacion,'. $this->id_ubicacion .',id_ubicacion',
+            'id_tda' => ['exists:tiendas_cc', Rule::unique('ubicaciones')->ignore($this->id_ubicacion, 'id_ubicacion')],
             'id_bd' => 'required|exists:bds_cc',
             'estatus' => 'required|boolean'
         ];
@@ -36,7 +36,8 @@ class LocationFormRequest extends FormRequest
     public function messages()
     {
         return [
-            'id_tda.unique' => 'Esta tienda ya está asignada a otra ubicación'
+            'id_tda.unique' => 'Esta tienda ya está asignada a otra ubicación',
+            'ubicacion.unique' => 'Esta ubicación ya existe en la base de datos'
         ];
     }
 

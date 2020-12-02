@@ -25,7 +25,7 @@ class CardFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'tarjeta' => 'required|unique:tarjetas,id_tarjeta|exists:tarjetas_cc',
+            'tarjeta' => 'required|unique:tarjetas,tarjeta|exists:tarjetas_cc',
             'nombre' => 'required|string|max:255'
         ];
     }
@@ -33,7 +33,8 @@ class CardFormRequest extends FormRequest
     public function messages()
     {
         return [
-            'tarjeta.exists' => 'El número de tarjeta ingresado no existe'
+            'tarjeta.exists' => 'El número de tarjeta ingresado no existe',
+            'tarjeta.unique' => 'El número de tarjeta ya está asignada a otro cliente'
         ];
     }
 

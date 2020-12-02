@@ -87,6 +87,6 @@ class CardController extends Controller
     {
         $card->status = 0;
         $card->save();
-        return redirect(route('cards.create', $card->id_cliente))->with('success', '¡Usuario eliminado exitosamente!');
+        return redirect(route('cards.create', $card->id_cliente))->with('success', 'Tarjeta borrada exitosamente!');
     }
 }

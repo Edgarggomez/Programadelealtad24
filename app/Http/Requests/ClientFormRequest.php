@@ -35,10 +35,7 @@ class ClientFormRequest extends FormRequest
             'flotilla' => 'boolean',
             'estatus' => [Rule::in([0, 1, 2])],
             'fecha_nacimiento' => 'date',
-            'tarjeta' => ['required', 'exists:tarjetas_cc,tarjeta', Rule::unique('tarjetas')->ignore($this->id_cliente, 'id_cliente')]
-            // 'tarjeta' => ['required', Rule::unique('tarjetas')->where(function ($query) {
-            //     return $query->whereNotIn('id_cliente', ["''", $this->id_cliente ? $this->id_cliente : "''"]);
-            // })]
+            'tarjeta' => 'required|exists:tarjetas_cc,tarjeta|unique:tarjetas,tarjeta,' . $this->id_cliente . ',id_cliente'
         ];
     }
 

@@ -15,6 +15,14 @@
                             {!! Form::label('search', 'Buscar:', ['class' => 'sr-only']) !!}
                             {!! Form::text('search', old('search'), ['class' => 'form-control', 'placeholder' => 'Buscar por nombre, tarjeta', 'autofocus']) !!}
                         </div>
+                        <div class="col-4 form-group">
+                            <input list="ubicaciones" name="ubicacion" id="ubicacion" class="form-control" placeholder="Buscar por ubicación">
+                            <datalist id="ubicaciones">
+                                @foreach ($ubicaciones as $ubicacion)
+                                    <option value="{{ $ubicacion->id_ubicacion }}">{{ $ubicacion->ubicacion }}</option>
+                                @endforeach
+                            </datalist>
+                        </div>
                         <div class="col-2">
                             <button class="btn btn-primary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </div>
@@ -30,7 +38,19 @@
                         </div>
                     </div>
                 {!! Form::close() !!}
+                <span data-href="{{ route('movimientosSaldo.export') }}" id="export" class="btn btn-success btn-sm" onclick="exportTasks(event.target);">Exportar</span>
                 <hr>
+                    @if (isset($unCliente) && !empty($unCliente))
+                        <div class="row">
+                            <div class="col alert alert-dark text-center">
+                                {{ $unCliente->nombre }}
+                            </div>
+                            <div class="col alert alert-dark text-center">
+                                {{ $unCliente->saldo }}
+                            </div>
+                        </div>
+                        <hr>
+                    @endif
 
                 <div class="row">
                     <table class="table table-striped">
@@ -89,4 +109,10 @@
         </div>
     </div>
 </div>
+<script>
+    function exportTasks(_this) {
+       let _url = $(_this).data('href') + '?' + window.location.href.split('?')[1];
+       window.location.href = _url;
+    }
+ </script>
 @endsection
