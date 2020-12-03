@@ -31,6 +31,18 @@ class Location extends Model
         });
     }
 
+
+    /**
+     * Get the index name for the model.
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'id_ubicacion';
+    }
+
+
 	/**
 	 * Get the indexable data array for the model.
 	 *

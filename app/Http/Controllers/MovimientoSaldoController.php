@@ -26,7 +26,7 @@ class MovimientoSaldoController extends Controller
             $query->whereIn('id_cliente', $clients)
                 ->orWhereIn('id_tarjeta', $cards);
         })
-        ->when($request->ubicacion, function($query, $rs_ubicaciones){
+        ->when($rs_ubicaciones, function($query) use($rs_ubicaciones){
             return $query->where('id_ubicacion', $rs_ubicaciones);
         })
         ->when($request->inicio, function($query, $fecha_inicio) {

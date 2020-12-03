@@ -19,7 +19,7 @@
                             <input list="ubicaciones" name="ubicacion" id="ubicacion" class="form-control" placeholder="Buscar por ubicación">
                             <datalist id="ubicaciones">
                                 @foreach ($ubicaciones as $ubicacion)
-                                    <option value="{{ $ubicacion->id_ubicacion }}">{{ $ubicacion->ubicacion }}</option>
+                                    <option value="{{ $ubicacion->ubicacion }}">{{ $ubicacion->ubicacion }}</option>
                                 @endforeach
                             </datalist>
                         </div>
