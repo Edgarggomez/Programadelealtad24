@@ -69,6 +69,12 @@
                                     <a class="dropdown-item" href="{{ route('movimientosSaldo.index') }}">
                                         Historial Saldo
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('reportes.bolsaPagar') }}">
+                                        Pagar Bolsa
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('reportes.bolsaCobrar') }}">
+                                        Cobrar Bolsa
+                                    </a>
                                 </div>
                             </li>
                             @endhasanyrole
