@@ -15,9 +15,16 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['register' => false]);
 
 Route::resource('usuarios', 'UserController', ['names' => 'users'])->parameters(['usuarios' => 'user'])->except(['show']);
+
+Route::get('reporte/bolsa-pagar/exportar', 'ReportController@bolsaPagarExportar')->name('reportes.bolsaPagarExportar');
+Route::get('reporte/bolsa-pagar', 'ReportController@bolsaPagar')->name('reportes.bolsaPagar');
+Route::get('reporte/bolsa-cobrar/exportar', 'ReportController@bolsaCobrarExportar')->name('reportes.bolsaCobrarExportar');
+Route::get('reporte/bolsa-cobrar', 'ReportController@bolsaCobrar')->name('reportes.bolsaCobrar');
+
 Route::resource('ubicaciones', 'LocationController', ['names' => 'locations'])->parameters(['ubicaciones' => 'location'])->except(['show']);
 Route::resource('reglas', 'RuleController', ['names' => 'rules'])->parameters(['reglas' => 'rule'])->except(['create', 'show', 'edit', 'update', 'index']);
 Route::get('ubicaciones/{location}/reglas/crear', 'RuleController@create')->name('rules.create');
+
 Route::resource('clientes', 'ClientController', ['names' => 'clients'])->parameters(['clientes' => 'client'])->except(['show']);
 Route::get('clientes/{client}/saldo-adicional', 'ClientController@editBalance')->name('client.editBalance');
 Route::post('clientes/{client}/saldo-adicional', 'ClientController@updateBalance')->name('client.updateBalance');

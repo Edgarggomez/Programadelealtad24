@@ -16,7 +16,7 @@ class LocationController extends Controller
         $this->middleware('auth');
         $this->middleware('role:admin');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -72,7 +72,7 @@ class LocationController extends Controller
      */
     public function edit(Location $location)
     {
-        for ($i=0; $i < 24; $i++) { 
+        for ($i=0; $i < 24; $i++) {
             $hours[] = $i;
         }
         $tdas = TiendaCC::pluck('nombre', 'id_tda');

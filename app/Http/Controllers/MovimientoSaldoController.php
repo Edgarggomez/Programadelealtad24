@@ -12,12 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class MovimientoSaldoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+
+    public function searchQuery($request)
     {
         $cards = Tarjeta::search($request->search)->get()->pluck('id_tarjeta')->toArray();
         $clients = Cliente::search($request->search)->get()->pluck('id_cliente')->toArray();
@@ -26,8 +22,8 @@ class MovimientoSaldoController extends Controller
             $query->whereIn('id_cliente', $clients)
                 ->orWhereIn('id_tarjeta', $cards);
         })
-        ->when($rs_ubicaciones, function($query) use($rs_ubicaciones){
-            return $query->where('id_ubicacion', $rs_ubicaciones);
+        ->when($request->ubicacion, function($query) use($rs_ubicaciones){
+            return $query->whereIn('id_ubicacion', $rs_ubicaciones);
         })
         ->when($request->inicio, function($query, $fecha_inicio) {
             return $query->where('fecha_mov', '>=', $fecha_inicio);
@@ -35,6 +31,18 @@ class MovimientoSaldoController extends Controller
         ->when($request->fin, function($query, $fecha_fin) {
             return $query->where('fecha_mov', '<=', $fecha_fin);
         });
+
+        return $mov_query;
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $mov_query = $this->searchQuery($request);
+
 
         $id_clientes = $mov_query->get()->unique('id_cliente')->pluck('id_cliente')->toArray();
 
@@ -58,27 +66,13 @@ class MovimientoSaldoController extends Controller
      */
     public function export(Request $request)
     {
-
-        $cards = Tarjeta::search($request->search)->get()->pluck('id_tarjeta')->toArray();
-        $clients = Cliente::search($request->search)->get()->pluck('id_cliente')->toArray();
-        $rs_ubicaciones = Location::search($request->ubicacion)->get()->pluck('id_ubicacion')->toArray();
-        $mov_query = MovimientoSaldo::where(function($query) use($clients, $cards) {
-            $query->whereIn('id_cliente', $clients)
-                ->orWhereIn('id_tarjeta', $cards);
-        })
-        ->when($request->ubicacion, function($query, $rs_ubicaciones){
-            return $query->where('id_ubicacion', $rs_ubicaciones);
-        })
-        ->when($request->inicio, function($query, $fecha_inicio) {
-            return $query->where('fecha_mov', '>=', $fecha_inicio);
-        })
-        ->when($request->fin, function($query, $fecha_fin) {
-            return $query->where('fecha_mov', '<=', $fecha_fin);
-        });
+        $mov_query = $this->searchQuery($request);
 
         $movimientos = $mov_query->get();
 
-        $fileName = 'movimientos.csv';
+        $dateNow = date("YmdHis");
+
+        $fileName = "movimientos-$dateNow.csv";
 
 
         $headers = array(
