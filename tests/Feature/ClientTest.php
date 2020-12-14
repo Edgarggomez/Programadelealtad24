@@ -20,10 +20,10 @@ class ClientTest extends TestCase
     }
 
     public function testUnauthorizedUsersStoreFails() {
-        
+
         $user = factory('App\User')->state('admin')->create();
         $input = $this->dummyClient();
-        
+
         $this->actingAs($user, 'web');
 
         $response = $this->withHeaders(['Accept' => 'application/json'])->post(route('clients.store'), $input);
@@ -35,10 +35,10 @@ class ClientTest extends TestCase
      * @dataProvider providertestAuthorizedUsersStorePass
      */
     public function testAuthorizedUsersStorePass($role) {
-        
+
         $user = factory('App\User')->state($role)->create();
         $input = $this->dummyClient();
-        
+
         $this->actingAs($user, 'web');
 
         $response = $this->withHeaders(['Accept' => 'application/json'])->post(route('clients.store'), $input);
@@ -61,7 +61,6 @@ class ClientTest extends TestCase
         $response = $this->withHeaders(['Accept' => 'application/json'])->post(route('clients.store'), $input);
         $response->assertJson(['message' => 'The given data was invalid.']);
         $this->assertDatabaseMissing('clientes', ['correo' => $input['correo']]);
-        
     }
 
     public function testClientValidationDuplicatedEmailFail()
@@ -83,21 +82,51 @@ class ClientTest extends TestCase
         $this->assertDatabaseMissing('clientes', ['rfc' => $secondInput['rfc']]);
     }
 
-    public function testClientUpdateSuccess(Type $var = null)
+    public function testUpdateBalancePass()
+    {
+        $user = factory('App\User')->state('gerente')->create();
+        $client = factory('App\Cliente')->state('tarjeta')->create();
+
+        $this->actingAs($user, 'web');
+
+        $input = ['saldo_adicional' => $this->faker->numberBetween(10, 30000)];
+
+        $response = $this->withHeaders(['Accept' => 'application/json'])->post(route('client.updateBalance', $client->id_cliente), $input);
+        $response->assertStatus(302);
+        $this->assertDatabaseHas('clientes', ['nombre' => $client->nombre, 'celular' => $client->celular,
+                'saldo' => $input['saldo_adicional']]);
+    }
+
+    /**
+     * @dataProvider providerTestValidationRulesAddBalance
+     */
+    public function testValidataionRulesUpdateBalanceFail($input)
+    {
+        $user = factory('App\User')->state('gerente')->create();
+        $client = factory('App\Cliente')->state('tarjeta')->create();
+
+        $this->actingAs($user, 'web');
+
+        $response = $this->withHeaders(['Accept' => 'application/json'])->post(route('client.updateBalance', $client->id_cliente), $input);
+        $response->assertJson(['message' => 'The given data was invalid.']);
+    }
+
+    public function testClientUpdatePass()
     {
         $user = factory('App\User')->state($this->faker->randomElement(array ('gerente', 'operador')))->create();
         $client = factory('App\Cliente')->create();
+        $cardCC = factory('App\TarjetaCC')->create();
 
         $input = $client->toArray();
-        $input['tarjeta'] = $this->faker->regexify('[0-9]{15}');
+        $input['tarjeta'] = $cardCC->tarjeta;
         $input['nombre'] = 'New Name357951';
-        $input['add_balance'] = 100;
-        
+        $input['celular'] = $this->faker->regexify('[0-9]{11}');
+
         $this->actingAs($user, 'web');
 
         $response = $this->withHeaders(['Accept' => 'application/json'])->put(route('clients.update', $client->id_cliente), $input);
         $response->assertRedirect(route('clients.index'));
-        $this->assertDatabaseHas('clientes', ['nombre' => $input['nombre'], 'saldo' => $input['add_balance']]);
+        $this->assertDatabaseHas('clientes', ['nombre' => $input['nombre'], 'celular' => $input['celular']]);
 
     }
 
@@ -115,6 +144,15 @@ class ClientTest extends TestCase
         );
     }
 
+    public function providerTestValidationRulesAddBalance()
+    {
+        return array(
+            array('Negative value' => ['saldo_adicional' => -500]),
+            array('Wrong value' => ['saldo_adicional' => 'asdff']),
+            array('Empty value' => ['saldo_adicional' => ''])
+        );
+    }
+
     public function providertestAuthorizedUsersStorePass()
     {
         return array (
@@ -122,18 +160,19 @@ class ClientTest extends TestCase
             array('Usuario Gerente' => 'gerente')
         );
     }
-    
+
     public function dummyClient() {
+        $tarjetaCC = factory('App\TarjetaCC')->create();
         return [
             'nombre' => $this->faker->name(),
-            'celular' => $this->faker->phoneNumber(),
+            'celular' => $this->faker->regexify('[0-9]{11}'),
             'correo' => $this->faker->unique()->safeEmail,
             'sexo' => $this->faker->randomElement(array ('M', 'F')),
             'flotilla' => $this->faker->boolean(),
             'rfc' => $this->faker->regexify('[A-Z]{4}[0-9]{6}[A-Z0-9]{3}'),
             'id_ubicacion' => '1',
-            'tarjeta' => $this->faker->regexify('[0-9]{15}')
+            'tarjeta' => $tarjetaCC->tarjeta
         ];
     }
-    
+
 }

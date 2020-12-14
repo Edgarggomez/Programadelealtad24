@@ -2,4 +2,4 @@
 
 @section('title', __('Forbidden'))
 @section('code', '403')
-@section('message', 'Accesso prohibido')
+@section('message', 'Acceso prohibido')

@@ -22,10 +22,14 @@ class Regla extends Model
     {
         $days_array = ['D', 'L', 'M', 'Mi', 'J', 'V', 'S'];
         $display_days = [];
-        foreach($this->dias as $day) {
-            $display_days[] = $days_array[$day];
+        if (!empty($this->dias) && is_array($this->dias)) {
+            foreach($this->dias as $day) {
+                $display_days[] = $days_array[$day];
+            }
+            return implode(', ', $display_days);
+        } else {
+            return [];
         }
-        return implode(', ', $display_days);
     }
 
 }

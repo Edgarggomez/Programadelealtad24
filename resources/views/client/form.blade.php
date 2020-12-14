@@ -7,7 +7,7 @@
             <div class="card">
 
                 @if(isset($client))
-                    <div class="card-header">Modificar Cliente <a class="btn btn-primary float-right" href="{{ route('client.editBalance', $client->id_cliente)}}">Añadir saldo</a></div>
+                    <div class="card-header">Modificar Cliente @role('gerente') <a class="btn btn-primary float-right" href="{{ route('client.editBalance', $client->id_cliente)}}">Añadir saldo</a> @endrole</div>
                 @else
                     <div class="card-header">Alta Cliente</div>
                 @endif

@@ -4,7 +4,6 @@ namespace App;
 
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Builder;
@@ -69,7 +68,7 @@ class User extends Authenticatable
 	public function toSearchableArray()
 	{
 		$array = $this->toArray();
-			
+
 		return array('name' => $array['name'], 'email' => $array['email']);
 	}
 }

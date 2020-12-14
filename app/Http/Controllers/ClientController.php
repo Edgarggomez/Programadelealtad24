@@ -21,6 +21,7 @@ class ClientController extends Controller
         $this->middleware('permission:alta cliente', ['only' => ['create','store']]);
         $this->middleware('permission:edicion cliente', ['only' => ['edit','update', 'index']]);
         $this->middleware('permission:baja cliente', ['only' => ['destroy']]);
+        $this->middleware('permission:abono manual cg', ['only' => ['editBalance', 'updateBalance']]);
     }
 
     /**

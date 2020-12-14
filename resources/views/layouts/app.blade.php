@@ -102,7 +102,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @role('admin')
                                         <a class="dropdown-item" href="{{ route('settings.create', ['nombre' => 'PRIMER_CONSUMO']) }}">
-                                            Configuración primer consumo
+                                            Primer Consumo
                                         </a>
                                     @endrole
                                     <a class="dropdown-item" href="{{ route('logout') }}"
