@@ -7,7 +7,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Administración de Usuario</div>
-                
+
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
@@ -34,8 +34,8 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Correo</th>
-                                <th>Roles</th>
                                 <th>Estatus</th>
+                                <th>Roles</th>
                                 <th>Acción</th>
                             </tr>
                         </thead>
@@ -54,12 +54,12 @@
                                     </td>
                                     <td>
                                         <a class="btn btn-success" href="{{ route('users.edit', $user->id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        
+
                                         {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-                                        
+
                                             <button type="submit" class="btn btn-danger btn-delete" disabled="false"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                             <input type="checkbox" class="confirm-delete">
-                                        
+
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>
