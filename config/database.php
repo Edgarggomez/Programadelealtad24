@@ -2,6 +2,16 @@
 
 use Illuminate\Support\Str;
 
+if (getenv("CLEARDB_DATABASE_URL")) {
+    $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+    $host = $url["host"];
+    $username = $url["user"];
+    $password = $url["pass"];
+    $database = substr($url["path"], 1);
+}
+
+
 return [
 
     /*
@@ -97,6 +107,24 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
         ],
+
+        'heroku_mysql' => array(
+            'driver' => 'mysql',
+            'host' => $host ?? '',
+            'database' => $database ?? '',
+            'username' => $username ?? '',
+            'password' => $password ?? '',
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => 'InnoDB',
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ),
 
     ],
 
