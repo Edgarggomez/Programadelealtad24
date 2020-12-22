@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                
+
                 @if(isset($user))
                     <div class="card-header">Modificar Usuario</div>
                 @else
