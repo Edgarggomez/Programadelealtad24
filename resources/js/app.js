@@ -5,6 +5,3 @@
  */
 
 require('./bootstrap');
-
-
-require('./scripts');

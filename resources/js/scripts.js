@@ -5,21 +5,3 @@ $('.confirm-delete').each((i, e) => {
         $(btnDelete[i]).prop("disabled", !checked);
     });
 });
-
-
-if ($('#role').val() == 'admin') {
-    $("div > #id_ubicacion").val("");
-    $("label[for='id_ubicacion']").fadeOut();
-    $("div > #id_ubicacion").fadeOut();
-}
-
-$("#role").on("change", function() {
-    if ($('#role').val() == 'admin') {
-        $("div > #id_ubicacion").val("");
-        $("label[for='id_ubicacion']").fadeOut();
-        $("div > #id_ubicacion").fadeOut();
-    } else {
-        $("label[for='id_ubicacion']").fadeIn();
-        $("div > #id_ubicacion").fadeIn();
-    }
-});
