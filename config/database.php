@@ -3,12 +3,13 @@
 use Illuminate\Support\Str;
 
 if (getenv("CLEARDB_DATABASE_URL")) {
-    $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+    $url = getenv('JAWSDB_MARIA_URL');
+    $dbparts = parse_url($url);
 
-    $host = $url["host"];
-    $username = $url["user"];
-    $password = $url["pass"];
-    $database = substr($url["path"], 1);
+    $host = $dbparts["host"];
+    $username = $dbparts["user"];
+    $password = $dbparts["pass"];
+    $database = ltrim($dbparts['path'],'/');
 }
 
 
