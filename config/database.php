@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Str;
 
-if (getenv("CLEARDB_DATABASE_URL")) {
+if (getenv("JAWSDB_MARIA_URL")) {
     $url = getenv('JAWSDB_MARIA_URL');
     $dbparts = parse_url($url);
 
