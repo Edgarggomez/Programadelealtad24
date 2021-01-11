@@ -52,8 +52,8 @@ use Illuminate\Http\Request;
 	Route::post('cg/sendTarjetas', 'ControlGasController@sendTarjetas');
 	Route::post('cg/receiveSyncOkTarjetas', 'ControlGasController@receiveSyncOkTarjetas');
 
-    Route::post('cg/receiveConsumos', 'ControlGasController@receiveConsumos');
+    Route::post('cg/receiveConsumos', 'ControlGasController@receiveConsumos')->name('cg.receiveConsumos');
 
-    Route::post('puntosExpirados', 'MovimientoSaldoController@expiredPoints');
+    Route::post('puntosExpirados', 'MovimientoSaldoController@expiredPoints')->name('points.expired');
 
 

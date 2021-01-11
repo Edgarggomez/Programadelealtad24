@@ -336,8 +336,8 @@ class ControlGasController extends Controller
     public function getMonto ($idLocation, $transactionDate, $amount, $idCliente) {
         $percentage = 0;
         $firstPurchase = MovimientoSaldo::where('id_cliente', $idCliente)->doesntExist();
-        if($firstPurchase) {
-            $firstPurchasePorcentage = Setting::where('name', 'PRIMER_CONSUMO')->value('value');
+        $firstPurchasePorcentage = Setting::where('name', 'PRIMER_CONSUMO')->where('status', 1)->value('value');
+        if($firstPurchase && $firstPurchasePorcentage) {
             return ($firstPurchasePorcentage / 100) * $amount;
         }
         $tDate = strtotime($transactionDate);

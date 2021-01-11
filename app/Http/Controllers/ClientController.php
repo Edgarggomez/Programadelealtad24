@@ -131,17 +131,21 @@ class ClientController extends Controller
         $validatedData = $request->validate([
             'saldo_adicional' => 'required|numeric|min:0'
         ]);
+
+        $user = Auth::user();
+
         $input = $request->all();
         $movSaldo = new MovimientoSaldo;
         $movSaldo->id_cliente = $client->id_cliente;
         $movSaldo->id_tarjeta = $client->id_tarjeta_principal;
+        $movSaldo->id_ubicacion = $user->id_ubicacion;
         $movSaldo->tipo = 'abono';
         $movSaldo->origen = 'saldo_adicional';
         $movSaldo->monto = $input['saldo_adicional'];
         $movSaldo->saldo_anterior = $client->saldo ?? 0;
         $movSaldo->saldo_nuevo = $client->saldo + $input['saldo_adicional'];
         $movSaldo->tipo_usuario = 'G';
-        $movSaldo->email_usuario = Auth::user()->email;
+        $movSaldo->email_usuario = $user->email;
         $movSaldo->save();
         $client->fecha_actualizacion_saldo = Carbon::now();
         $client->saldo = $movSaldo->saldo_nuevo;

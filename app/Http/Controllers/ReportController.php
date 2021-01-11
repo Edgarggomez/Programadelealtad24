@@ -70,7 +70,7 @@ class ReportController extends Controller
      */
     public function bolsaCobrar(Request $request)
     {
-        $cobrares = $this->bolsaPagarQuery($request)->paginate(10);
+        $cobrares = $this->bolsaCobrarQuery($request)->paginate(10);
 
         $ubicaciones = Location::all();
 
@@ -81,7 +81,7 @@ class ReportController extends Controller
 
     public function bolsaCobrarExportar(Request $request)
     {
-        $cobraresExport = $this->bolsaPagarQuery($request)->get();
+        $cobraresExport = $this->bolsaCobrarQuery($request)->get();
 
         $dateNow = date("YmdHis");
 
